@@ -355,7 +355,6 @@ choco install yubico-authenticator -y
 
 # Install Media Tools
 choco install vlc -y
-choco install spotify -y
 
 # Install Gaming Tools
 choco install steam -y
