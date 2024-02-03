@@ -28,6 +28,16 @@ $Boxstarter.AutoLogin=$true # Save my password securely and auto-login after a r
 # Helpers
 ###########
 
+# Function to add a line to the PowerShell profile
+function addToProfileScript {
+	Param ([string]$value)
+	Param ([string]$file = "$HOME\OneDrive\Dokumenty\PowerShell\Microsoft.PowerShell_profile.ps1")
+    if (!(Test-Path -Path $file)) {
+        New-Item -ItemType File -Path $file -Force
+    }
+    Add-Content -Path $file -Value $value
+}
+
 #############################
 # Privacy / Security Settings
 #############################
@@ -240,23 +250,14 @@ cup minikube --cacheLocation $ChocoCachePath
 # Git
 #####
 
-# Function to add a line to the PowerShell profile
-function addToProfileScript {
-	Param ([string]$value)
-    if (!(Test-Path -Path $PROFILE)) {
-        New-Item -ItemType File -Path $PROFILE -Force
-    }
-    Add-Content -Path $PROFILE -Value $value
-}
-
 # Install git
 cup git --cacheLocation $ChocoCachePath
 
 # Install posh-git
 pwsh -Command "Install-Module posh-git -Scope CurrentUser -Force"
 
-# Add posh-git to PowerShell 7 profile
-pwsh -Command { addToProfileScript 'Import-Module posh-git' }
+# Add posh-git to profile
+addToProfileScript 'Import-Module posh-git'
 
 #############################
 # Runtime Environments & SDKs
@@ -271,7 +272,7 @@ cup python3 --cacheLocation $ChocoCachePath
 # Install and setup FNM (Fast Node Manager)
 cup fnm --cacheLocation $ChocoCachePath
 fnm env --use-on-cd | Out-String | Invoke-Expression
-pwsh -Command { addToProfileScript 'fnm env --use-on-cd | Out-String | Invoke-Expression' }
+addToProfileScript 'fnm env --use-on-cd | Out-String | Invoke-Expression'
 
 # Install latest LTS Node.js
 fnm install --lts
@@ -338,5 +339,5 @@ Remove-Item $ChocoCachePath -Recurse
 #--- Restore Temporary Settings ---
 choco feature disable -n=allowGlobalConfirmation
 Enable-MicrosoftUpdate
-Install-WindowsUpdate
+Get-WindowsUpdate -AcceptAll -Install -AutoReboot
 Enable-UAC
