@@ -260,7 +260,7 @@ cinst IIS-WindowsAuthentication -source windowsfeatures
 # Install Visual C++ Redistributable 2015-2022
 choco install vcredist140 -y
 
-# Install Nvidia Drivers - currently disabled, as it causes bootloop
+# Install Nvidia Drivers - currently disabled, as it failes and causes bootloop
 # choco install geforce-game-ready-driver -y
 
 # Install Logitech G Hub
@@ -378,7 +378,7 @@ choco install termius -y
 choco install powertoys -y
 
 # Install Google Drive
-choco install googledrive -y
+choco install googledrive -y --params "'/NoStart /NoGsuiteIcons'"
 
 # Install Autodesk Fusion 360
 choco install autodesk-fusion360 -y
@@ -391,8 +391,8 @@ choco install yubico-authenticator -y
 # Entertainment
 #######
 
-# Install Geforce Experience
-choco install geforce-experience -y
+# Install Geforce Experience - disabled, as it fails and causes bootloop
+# choco install geforce-experience -y
 
 # Install Media Tools
 choco install vlc -y
