@@ -294,7 +294,7 @@ if (Test-PendingReboot) { Invoke-Reboot }
 # PowerShell
 ##########
 
-choco install powershell-core -y --install-arguments='"DISABLE_TELEMETRY ADD_FILE_CONTEXT_MENU_RUNPOWERSHELL=1 ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 REGISTER_MANIFEST=1 USE_MU=1 ENABLE_MU=1"'
+choco install powershell-core -y --install-arguments='"ADD_FILE_CONTEXT_MENU_RUNPOWERSHELL=1 ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 REGISTER_MANIFEST=1 USE_MU=1 ENABLE_MU=1"'
 
 ##########
 # Browsers
