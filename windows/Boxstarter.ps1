@@ -30,8 +30,13 @@ $Boxstarter.AutoLogin=$true # Save my password securely and auto-login after a r
 
 # Function to add a line to the PowerShell profile
 function addToProfileScript {
-	Param ([string]$value)
-	Param ([string]$file = "$HOME\OneDrive\Dokumenty\PowerShell\Microsoft.PowerShell_profile.ps1")
+	Param (
+		[Parameter(Mandatory=$true)]
+		[string]$value,
+		
+		[Parameter(Mandatory=$false)]
+		[string]$file = "$HOME\OneDrive\Dokumenty\PowerShell\Microsoft.PowerShell_profile.ps1"
+	)
     if (!(Test-Path -Path $file)) {
         New-Item -ItemType File -Path $file -Force
     }
