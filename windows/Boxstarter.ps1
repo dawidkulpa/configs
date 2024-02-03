@@ -344,8 +344,9 @@ cup golang --cacheLocation $ChocoCachePath
 # Install Python 3
 cup python3 --cacheLocation $ChocoCachePath
 
-# Install NVM (Node Version Manager)
+# Install NVM (Node Version Manager) and refresh environment
 cup nvm --cacheLocation $ChocoCachePath
+refreshenv
 
 # Install latest LTS Node.js
 nvm install lts
