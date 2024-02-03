@@ -15,10 +15,6 @@ Update-ExecutionPolicy -Policy RemoteSigned
 $ChocoCachePath = "C:\Temp"
 New-Item -Path $ChocoCachePath -ItemType directory -Force
 
-# Trust PSGallery
-Get-PackageProvider -Name Nuget -ForceBootstrap
-Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
-
 # Temporary
 Disable-UAC
 
