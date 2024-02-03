@@ -28,15 +28,6 @@ $Boxstarter.AutoLogin=$true # Save my password securely and auto-login after a r
 # Helpers
 ###########
 
-# Function to add a line to the PowerShell profile
-function addToProfileScript {
-	Param ([string]$value)
-    if (!(Test-Path -Path $PROFILE)) {
-        New-Item -ItemType File -Path $PROFILE -Force
-    }
-    Add-Content -Path $PROFILE -Value $value
-}
-
 #############################
 # Privacy / Security Settings
 #############################
@@ -249,6 +240,15 @@ cup minikube --cacheLocation $ChocoCachePath
 # Git
 #####
 
+# Function to add a line to the PowerShell profile
+function addToProfileScript {
+	Param ([string]$value)
+    if (!(Test-Path -Path $PROFILE)) {
+        New-Item -ItemType File -Path $PROFILE -Force
+    }
+    Add-Content -Path $PROFILE -Value $value
+}
+
 # Install git
 cup git --cacheLocation $ChocoCachePath
 
@@ -269,7 +269,7 @@ cup golang --cacheLocation $ChocoCachePath
 cup python3 --cacheLocation $ChocoCachePath
 
 # Install and setup FNM (Fast Node Manager)
-cup nvm --cacheLocation $ChocoCachePath
+cup fnm --cacheLocation $ChocoCachePath
 fnm env --use-on-cd | Out-String | Invoke-Expression
 pwsh -Command { addToProfileScript 'fnm env --use-on-cd | Out-String | Invoke-Expression' }
 
