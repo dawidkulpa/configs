@@ -24,6 +24,19 @@ $Boxstarter.RebootOk=$true # Allow reboots?
 $Boxstarter.NoPassword=$false # Is this a machine with no login password?
 $Boxstarter.AutoLogin=$true # Save my password securely and auto-login after a reboot
 
+###########
+# Helpers
+###########
+
+# Function to add a line to the PowerShell profile
+function addToProfileScript {
+	Param ([string]$value)
+    if (!(Test-Path -Path $PROFILE)) {
+        New-Item -ItemType File -Path $PROFILE -Force
+    }
+    Add-Content -Path $PROFILE -Value $value
+}
+
 #############################
 # Privacy / Security Settings
 #############################
@@ -55,11 +68,16 @@ New-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search
 # Disable SMBv1
 Disable-WindowsOptionalFeature -Online -FeatureName smb1protocol
 
+# Enable Developer Mode
+Set-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock -Name AllowDevelopmentWithoutDevLicense -Type DWord -Value 1
+
 ############################
 # Personal Preferences on UI
 ############################
 Set-WindowsExplorerOptions -EnableShowHiddenFilesFoldersDrives -EnableShowFileExtensions -EnableShowFullPathInTitleBar
-Set-BoxstarterTaskbarOptions -Size Small
+Set-BoxstarterTaskbarOptions -Size Small -MultiMonitorOn -MultiMonitorMode All -MultiMonitorCombine Always
+Set-CornerNavigationOptions -EnableUpperLeftCornerSwitchApps -EnableUsePowerShellOnWinX
+Set-StartScreenOptions -EnableSearchEverywhereInAppsView -DisableListDesktopAppsFirst
 
 # Move "Documents" folder to OneDrive
 Move-LibraryDirectory "Personal" "$HOME\OneDrive\Dokumenty"
@@ -94,101 +112,53 @@ If (-Not (Test-Path "HKCU:SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Adv
 Set-ItemProperty -Path "HKCU:SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\People" -Name PeopleBand -Type DWord -Value 0
 
 ###############################
-# Windows 10 Metro App Removals
+# Windows App Removals
 ###############################
 
-# BubbleWitch
-Get-AppxPackage *BubbleWitch* | Remove-AppxPackage
-
-# Candy Crush
-Get-AppxPackage king.com.CandyCrush* | Remove-AppxPackage
-
-# Dell
-Get-AppxPackage *Dell* | Remove-AppxPackage
-
-# Disney Magic Kingdom
-Get-AppxPackage *DisneyMagicKingdom* | Remove-AppxPackage
-
-# Dropbox
-Get-AppxPackage *Dropbox* | Remove-AppxPackage
-
-# Facebook
-Get-AppxPackage *Facebook* | Remove-AppxPackage
-
-# Feedback Hub
-Get-AppxPackage Microsoft.WindowsFeedbackHub | Remove-AppxPackage
-
-# Get Started
-Get-AppxPackage Microsoft.Getstarted | Remove-AppxPackage
-
-# Hidden City: Hidden Object Adventure
-Get-AppxPackage *HiddenCityMysteryofShadows* | Remove-AppxPackage
-
-# Keeper
-Get-AppxPackage *Keeper* | Remove-AppxPackage
-
-# Mail & Calendar
-Get-AppxPackage microsoft.windowscommunicationsapps | Remove-AppxPackage
-
-# Maps
-Get-AppxPackage Microsoft.WindowsMaps | Remove-AppxPackage
-
-# March of Empires
-Get-AppxPackage *MarchofEmpires* | Remove-AppxPackage
-
-# McAfee Security
-Get-AppxPackage *McAfee* | Remove-AppxPackage
-
-# Uninstall McAfee Security App
-$mcafee = gci "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall" | foreach { gp $_.PSPath } | ? { $_ -match "McAfee Security" } | select UninstallString
-if ($mcafee) {
-	$mcafee = $mcafee.UninstallString -Replace "C:\Program Files\McAfee\MSC\mcuihost.exe",""
-	Write "Uninstalling McAfee..."
-	start-process "C:\Program Files\McAfee\MSC\mcuihost.exe" -arg "$mcafee" -Wait
+function removeApp {
+    Param ([string]$appName)
+    Write-Output "Trying to remove $appName"
+    Get-AppxPackage $appName -AllUsers | Remove-AppxPackage
+    Get-AppXProvisionedPackage -Online | Where DisplayName -like $appName | Remove-AppxProvisionedPackage -Online
 }
 
-# Minecraft
-Get-AppxPackage *Minecraft* | Remove-AppxPackage
+$applicationList = @(
+    "Microsoft.BingFinance"
+    "Microsoft.3DBuilder"
+    "Microsoft.BingNews"
+    "Microsoft.BingSports"
+    "Microsoft.CommsPhone"
+    "Microsoft.Getstarted"
+    "*MarchofEmpires*"
+    "Microsoft.GetHelp"
+    "Microsoft.Messaging"
+    "*Minecraft*"
+    "Microsoft.MicrosoftOfficeHub"
+    "Microsoft.OneConnect"
+    "Microsoft.WindowsSoundRecorder"
+    "*Solitaire*"
+    "Microsoft.MicrosoftStickyNotes"
+    "Microsoft.Office.Sway"
+    "Microsoft.NetworkSpeedTest"
+    "Microsoft.FreshPaint"
+    "Microsoft.SkypeApp"
+    "Microsoft.ZuneMusic"
+    "Microsoft.ZuneVideo"
+    "*BubbleWitch*"
+    "king.com*"
+    "G5*"
+    "*Facebook*"
+    "*Keeper*"
+    "*Plex*"
+    "*.Duolingo-LearnLanguagesforFree"
+    "*.EclipseManager"
+    "ActiproSoftwareLLC.562882FEEB491" # Code Writer
+    "*.AdobePhotoshopExpress"
+);
 
-# Netflix
-Get-AppxPackage *Netflix* | Remove-AppxPackage
-
-# Office Hub
-Get-AppxPackage Microsoft.MicrosoftOfficeHub | Remove-AppxPackage
-
-# One Connect
-Get-AppxPackage Microsoft.OneConnect | Remove-AppxPackage
-
-# OneNote
-Get-AppxPackage Microsoft.Office.OneNote | Remove-AppxPackage
-
-# People
-Get-AppxPackage Microsoft.People | Remove-AppxPackage
-
-# Plex
-Get-AppxPackage *Plex* | Remove-AppxPackage
-
-# Skype (Metro version)
-Get-AppxPackage Microsoft.SkypeApp | Remove-AppxPackage
-
-# Sound Recorder
-Get-AppxPackage Microsoft.WindowsSoundRecorder | Remove-AppxPackage
-
-# Solitaire
-Get-AppxPackage *Solitaire* | Remove-AppxPackage
-
-# Sticky Notes
-Get-AppxPackage Microsoft.MicrosoftStickyNotes | Remove-AppxPackage
-
-# Sway
-Get-AppxPackage Microsoft.Office.Sway | Remove-AppxPackage
-
-# Twitter
-Get-AppxPackage *Twitter* | Remove-AppxPackage
-
-# Zune Music, Movies & TV
-Get-AppxPackage Microsoft.ZuneMusic | Remove-AppxPackage
-Get-AppxPackage Microsoft.ZuneVideo | Remove-AppxPackage
+foreach ($app in $applicationList) {
+    removeApp $app
+}
 
 ###############################
 # Power Settings
@@ -212,6 +182,9 @@ powercfg -change -hibernate-timeout-ac 0
 
 cinst Microsoft-Windows-Subsystem-Linux -source windowsFeatures
 cinst TelnetClient -source windowsFeatures
+
+Enable-WindowsOptionalFeature -Online -FeatureName containers -All
+RefreshEnv
 
 #######
 # Drivers and hardware management
@@ -282,16 +255,7 @@ cup git --cacheLocation $ChocoCachePath
 pwsh -Command "Install-Module posh-git -Scope CurrentUser -Force"
 
 # Add posh-git to PowerShell 7 profile
-$profilePath = "$HOME\OneDrive\Dokumenty\PowerShell\Microsoft.PowerShell_profile.ps1"
-$addToProfileScript = {
-    if (!(Test-Path -Path $profilePath)) {
-        New-Item -ItemType File -Path $profilePath -Force
-    }
-    Add-Content -Path $profilePath -Value 'Import-Module posh-git'
-}
-
-# Execute the script block in PowerShell 7 to ensure it uses the correct profile
-pwsh -Command $addToProfileScript
+pwsh -Command { addToProfileScript 'Import-Module posh-git' }
 
 #############################
 # Runtime Environments & SDKs
@@ -303,12 +267,13 @@ cup golang --cacheLocation $ChocoCachePath
 # Install Python 3
 cup python3 --cacheLocation $ChocoCachePath
 
-# Install NVM (Node Version Manager) and refresh environment
+# Install and setup FNM (Fast Node Manager)
 cup nvm --cacheLocation $ChocoCachePath
-refreshenv
+fnm env --use-on-cd | Out-String | Invoke-Expression
+pwsh -Command { addToProfileScript 'fnm env --use-on-cd | Out-String | Invoke-Expression' }
 
 # Install latest LTS Node.js
-pwsh -Command "nvm install lts"
+fnm install --lts
 
 #######
 # Tools
@@ -372,5 +337,5 @@ Remove-Item $ChocoCachePath -Recurse
 #--- Restore Temporary Settings ---
 choco feature disable -n=allowGlobalConfirmation
 Enable-MicrosoftUpdate
-Install-WindowsUpdate -AcceptEula
+Install-WindowsUpdate
 Enable-UAC
