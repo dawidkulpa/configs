@@ -6,7 +6,7 @@
 # Learn more: http://boxstarter.org/Learn/WebLauncher
 #
 # Run this BoxstarterDevFull.ps1 script by calling the following from **elevated** powershell:
-#   example: Install-BoxstarterPackage -PackageName https://raw.githubusercontent.com/dawidkulpa/configs/master/windows/Boxstarter.ps1 -DisableReboots
+#   example: Install-BoxstarterPackage -PackageName https://raw.githubusercontent.com/dawidkulpa/configs/master/windows/Boxstarter.ps1
 
 
 Update-ExecutionPolicy -Policy RemoteSigned
@@ -33,7 +33,7 @@ function addToProfileScript {
 	Param (
 		[Parameter(Mandatory=$true)]
 		[string]$value,
-		
+
 		[Parameter(Mandatory=$false)]
 		[string]$file = "$HOME\OneDrive\Dokumenty\PowerShell\Microsoft.PowerShell_profile.ps1"
 	)
@@ -344,5 +344,5 @@ Remove-Item $ChocoCachePath -Recurse
 #--- Restore Temporary Settings ---
 choco feature disable -n=allowGlobalConfirmation
 Enable-MicrosoftUpdate
-Get-WindowsUpdate -AcceptAll -Install -AutoReboot
+pwsh -Command "Get-WindowsUpdate -AcceptAll -Install -AutoReboot"
 Enable-UAC
