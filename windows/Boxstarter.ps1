@@ -210,49 +210,8 @@ powercfg -change -hibernate-timeout-ac 0
 # Windows Subsystems/Roles/Features
 ###################################
 
-cinst Microsoft-Hyper-V-All -source windowsFeatures
 cinst Microsoft-Windows-Subsystem-Linux -source windowsFeatures
 cinst TelnetClient -source windowsFeatures
-
-cinst IIS-ApplicationDevelopment -source windowsfeatures
-cinst IIS-ApplicationInit -source windowsfeatures
-cinst IIS-ASPNET -source windowsfeatures
-cinst IIS-ASPNET45 -source windowsfeatures
-cinst IIS-BasicAuthentication -source windowsfeatures
-cinst IIS-ClientCertificateMappingAuthentication -source windowsfeatures
-cinst IIS-CommonHttpFeatures -source windowsfeatures
-cinst IIS-CustomLogging -source windowsfeatures
-cinst IIS-DefaultDocument -source windowsfeatures
-cinst IIS-DigestAuthentication -source windowsfeatures
-cinst IIS-DirectoryBrowsing -source windowsfeatures
-cinst IIS-HealthAndDiagnostics -source windowsfeatures
-cinst IIS-HttpCompressionDynamic -source windowsfeatures
-cinst IIS-HttpCompressionStatic -source windowsfeatures
-cinst IIS-HttpErrors -source windowsfeatures
-cinst IIS-HttpLogging -source windowsfeatures
-cinst IIS-HttpRedirect -source windowsfeatures
-cinst IIS-HttpTracing -source windowsfeatures
-cinst IIS-IISCertificateMappingAuthentication -source windowsfeatures
-cinst IIS-IPSecurity -source windowsfeatures
-cinst IIS-ISAPIExtensions -source windowsfeatures
-cinst IIS-ISAPIFilter -source windowsfeatures
-cinst IIS-LoggingLibraries -source windowsfeatures
-cinst IIS-ManagementConsole -source windowsfeatures
-cinst IIS-ManagementScriptingTools -source windowsfeatures
-cinst IIS-ManagementService -source windowsfeatures
-cinst IIS-NetFxExtensibility -source windowsfeatures
-cinst IIS-NetFxExtensibility45 -source windowsfeatures
-cinst IIS-Performance -source windowsfeatures
-cinst IIS-RequestFiltering -source windowsfeatures
-cinst IIS-RequestMonitor -source windowsfeatures
-cinst IIS-Security -source windowsfeatures
-cinst IIS-StaticContent -source windowsfeatures
-cinst IIS-URLAuthorization -source windowsfeatures
-cinst IIS-WebServer -source windowsfeatures
-cinst IIS-WebServerManagementTools -source windowsfeatures
-cinst IIS-WebServerRole -source windowsfeatures
-cinst IIS-WebSockets -source windowsfeatures
-cinst IIS-WindowsAuthentication -source windowsfeatures
 
 #######
 # Drivers and hardware management
@@ -415,5 +374,5 @@ Remove-Item $ChocoCachePath -Recurse
 #--- Restore Temporary Settings ---
 choco feature disable -n=allowGlobalConfirmation
 Enable-MicrosoftUpdate
-Install-WindowsUpdate -acceptEula
+Install-WindowsUpdate -AcceptEula
 Enable-UAC
