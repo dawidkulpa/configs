@@ -260,8 +260,8 @@ cinst IIS-WindowsAuthentication -source windowsfeatures
 # Install Visual C++ Redistributable 2015-2022
 choco install vcredist140 -y
 
-# Install Nvidia Drivers
-choco install geforce-game-ready-driver -y
+# Install Nvidia Drivers - currently disabled, as it causes bootloop
+# choco install geforce-game-ready-driver -y
 
 # Install Logitech G Hub
 choco install lghub -y
