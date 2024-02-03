@@ -17,6 +17,7 @@ New-Item -Path $ChocoCachePath -ItemType directory -Force
 
 # Temporary
 Disable-UAC
+Disable-MicrosoftUpdate
 
 # General boxstarter settings #
 $Boxstarter.RebootOk=$true # Allow reboots?
