@@ -58,7 +58,7 @@ Disable-WindowsOptionalFeature -Online -FeatureName smb1protocol
 # Personal Preferences on UI
 ############################
 Set-WindowsExplorerOptions -EnableShowHiddenFilesFoldersDrives -EnableShowFileExtensions -EnableShowFullPathInTitleBar
-Set-TaskbarOptions -Size Small
+Set-BoxstarterTaskbarOptions -Size Small
 
 # Move "Documents" folder to OneDrive
 Move-LibraryDirectory "Personal" "$HOME\OneDrive\Dokumenty"
