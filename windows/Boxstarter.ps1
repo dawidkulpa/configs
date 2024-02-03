@@ -5,7 +5,7 @@
 # 	. { iwr -useb http://boxstarter.org/bootstrapper.ps1 } | iex; get-boxstarter -Force
 # Learn more: http://boxstarter.org/Learn/WebLauncher
 #
-# Run this BoxstarterDevFull.ps1 script by calling the following from **elevated** powershell:
+# Run this Boxstarter.ps1 script by calling the following from **elevated** powershell:
 #   example: Install-BoxstarterPackage -PackageName https://raw.githubusercontent.com/dawidkulpa/configs/master/windows/Boxstarter.ps1
 
 
@@ -246,10 +246,10 @@ choco install googlechrome
 # Docker
 ##########
 
-# Install Docker & Minikube
-cup docker-desktop --cacheLocation $ChocoCachePath
-cup docker-compose --cacheLocation $ChocoCachePath
-cup minikube --cacheLocation $ChocoCachePath
+# Install Docker & Minikube - currently disabled, as it causes some issues
+# cup docker-desktop --cacheLocation $ChocoCachePath
+# cup docker-compose --cacheLocation $ChocoCachePath
+# cup minikube --cacheLocation $ChocoCachePath
 
 #####
 # Git
