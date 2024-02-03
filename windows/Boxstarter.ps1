@@ -344,5 +344,5 @@ Remove-Item $ChocoCachePath -Recurse
 #--- Restore Temporary Settings ---
 choco feature disable -n=allowGlobalConfirmation
 Enable-MicrosoftUpdate
-pwsh -Command "Get-WindowsUpdate -AcceptAll -Install -AutoReboot"
+pwsh -Command "Install-WindowsUpdate -MicrosoftUpdate -AcceptAll -AutoReboot"
 Enable-UAC
