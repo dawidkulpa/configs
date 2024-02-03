@@ -349,7 +349,7 @@ cup nvm --cacheLocation $ChocoCachePath
 refreshenv
 
 # Install latest LTS Node.js
-nvm install lts
+pwsh -Command "nvm install lts"
 
 #######
 # Tools
