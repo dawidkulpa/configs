@@ -275,9 +275,8 @@ cup minikube --cacheLocation $ChocoCachePath
 # Git
 #####
 
-# Install git & git credential manager
+# Install git
 cup git --cacheLocation $ChocoCachePath
-cup git-credential-manager-for-windows --cacheLocation $ChocoCachePath
 
 # Install posh-git
 pwsh -Command "Install-Module posh-git -Scope CurrentUser -Force"
