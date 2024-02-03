@@ -129,14 +129,11 @@ $applicationList = @(
     "Microsoft.BingSports"
     "Microsoft.CommsPhone"
     "Microsoft.Getstarted"
-    "*MarchofEmpires*"
     "Microsoft.GetHelp"
     "Microsoft.Messaging"
-    "*Minecraft*"
     "Microsoft.MicrosoftOfficeHub"
     "Microsoft.OneConnect"
     "Microsoft.WindowsSoundRecorder"
-    "*Solitaire*"
     "Microsoft.MicrosoftStickyNotes"
     "Microsoft.Office.Sway"
     "Microsoft.NetworkSpeedTest"
@@ -144,6 +141,11 @@ $applicationList = @(
     "Microsoft.SkypeApp"
     "Microsoft.ZuneMusic"
     "Microsoft.ZuneVideo"
+    "Microsoft.OutlookForWindows"
+    "*.MicrosoftFamily"
+    "*MarchofEmpires*"
+    "*Minecraft*"
+    "*Solitaire*"
     "*BubbleWitch*"
     "king.com*"
     "G5*"
@@ -154,6 +156,7 @@ $applicationList = @(
     "*.EclipseManager"
     "ActiproSoftwareLLC.562882FEEB491" # Code Writer
     "*.AdobePhotoshopExpress"
+    "Clipchamp.Clipchamp"
 );
 
 foreach ($app in $applicationList) {
