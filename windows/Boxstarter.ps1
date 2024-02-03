@@ -65,7 +65,7 @@ Set-WindowsExplorerOptions -EnableShowHiddenFilesFoldersDrives -EnableShowFileEx
 Set-TaskbarOptions -Size Small
 
 # Move "Documents" folder to OneDrive
-Move-LibraryDirectory "Personal" "$env:UserProfile\OneDrive\documents"
+Move-LibraryDirectory "Personal" "$HOME\OneDrive\Dokumenty"
 
 # Disable defrag (no need when having an SSD)
 Get-ScheduledTask -TaskName *defrag* | Disable-ScheduledTask
@@ -261,6 +261,12 @@ cinst IIS-WindowsAuthentication -source windowsfeatures
 # Drivers and hardware management
 #######
 
+# Install Visual C++ Redistributable 2015-2022
+choco install vcredist140 -y
+
+# Install Nvidia Drivers
+choco install geforce-game-ready-driver -y
+
 # Install Logitech G Hub
 choco install lghub -y
 
@@ -289,6 +295,12 @@ choco install dotnet4.5
 if (Test-PendingReboot) { Invoke-Reboot }
 
 ##########
+# PowerShell
+##########
+
+choco install powershell-core -y --install-arguments='"DISABLE_TELEMETRY ADD_FILE_CONTEXT_MENU_RUNPOWERSHELL=1 ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 REGISTER_MANIFEST=1 USE_MU=1 ENABLE_MU=1"'
+
+##########
 # Browsers
 ##########
 
@@ -312,7 +324,19 @@ cup git --cacheLocation $ChocoCachePath
 cup git-credential-manager-for-windows --cacheLocation $ChocoCachePath
 
 # Install posh-git
-cup poshgit --cacheLocation $ChocoCachePath
+pwsh -Command "Install-Module posh-git -Scope CurrentUser -Force"
+
+# Add posh-git to PowerShell 7 profile
+$profilePath = "$HOME\OneDrive\Dokumenty\PowerShell\Microsoft.PowerShell_profile.ps1"
+$addToProfileScript = {
+    if (!(Test-Path -Path $profilePath)) {
+        New-Item -ItemType File -Path $profilePath -Force
+    }
+    Add-Content -Path $profilePath -Value 'Import-Module posh-git'
+}
+
+# Execute the script block in PowerShell 7 to ensure it uses the correct profile
+pwsh -Command $addToProfileScript
 
 #############################
 # Runtime Environments & SDKs
