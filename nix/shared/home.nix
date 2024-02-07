@@ -30,6 +30,10 @@
     # Other stuff
     git-open
     asciinema
+
+    opera
+    discord
+    lutris
   ];
 
   # Enables the programs and uses my configuration for them.
