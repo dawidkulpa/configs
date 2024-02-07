@@ -30,7 +30,6 @@
     # Other stuff
     git-open
     asciinema
-    parallel
   ];
 
   # Enables the programs and uses my configuration for them.
@@ -67,7 +66,7 @@
       enable = true;
 
       # Required because of a settings migration
-      settings.version = 1;
+      # settings.version = 1;
     };
 
     bat = {
