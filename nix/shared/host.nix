@@ -10,9 +10,7 @@
 
   system.configurationRevision = inputs.self.rev or inputs.self.dirtyRev or null;
 
-  environment.systemPackages = with pkgs; [
-    mosh
-  ];
+  environment.systemPackages = with pkgs; [ ];
 
   nix.nixPath = lib.mkForce [
     "nixpkgs=${inputs.nixpkgs}"

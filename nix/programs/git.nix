@@ -15,8 +15,8 @@ in {
     programs.git = {
       enable = true;
       package = pkgs.gitFull;
-      userName = "";
-      userEmail = "";
+      userName = "Dawid Kulpa";
+      userEmail = "kontakt@dkulpa.eu";
       ignores = [
         "*~"
         "*.swp"
