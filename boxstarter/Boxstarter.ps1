@@ -86,7 +86,7 @@ Set-CornerNavigationOptions -EnableUpperLeftCornerSwitchApps -EnableUsePowerShel
 Set-StartScreenOptions -EnableSearchEverywhereInAppsView -DisableListDesktopAppsFirst
 
 # Move "Documents" folder to OneDrive
-Move-LibraryDirectory "Personal" "$HOME\OneDrive\Dokumenty"
+# Move-LibraryDirectory "Personal" "$HOME\OneDrive\Dokumenty"
 
 # Disable defrag (no need when having an SSD)
 Get-ScheduledTask -TaskName *defrag* | Disable-ScheduledTask
@@ -260,6 +260,9 @@ cup git --cacheLocation $ChocoCachePath
 
 # Install posh-git
 pwsh -Command "Install-Module posh-git -Scope CurrentUser -Force"
+
+# Install PSReadLine
+pwsh -Command "Install-Module -Name PSReadLine -Scope CurrentUser -Force -SkipPublisherCheck"
 
 # Add posh-git to profile
 addToProfileScript 'Import-Module posh-git'
