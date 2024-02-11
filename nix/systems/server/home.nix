@@ -10,10 +10,5 @@
 
   home.packages = with pkgs; [
     libsForQt5.dolphin
-    
-    opera
-    discord
-    lutris
-    git-open
   ];
 }

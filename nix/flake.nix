@@ -84,6 +84,17 @@
         };
       };
     };
+
+    home-manager-buggy-s = path: {
+      home-manager = {
+        useUserPackages = true;
+        useGlobalPkgs = true;
+        users.buggy = path;
+        extraSpecialArgs = {
+          inherit inputs;
+        };
+      };
+    };
   in
     {
       darwinConfigurations = {
@@ -120,6 +131,18 @@
             nixos-wsl.nixosModules.default
             (home-manager-buggy ./systems/wsl/home.nix)
             ./systems/wsl/host.nix
+          ];
+          specialArgs = {
+            inherit inputs;
+          };
+        };
+
+        nixosServer = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            home-manager.nixosModules.default
+            (home-manager-buggy-s ./systems/server/home.nix)
+            ./systems/server/host.nix
           ];
           specialArgs = {
             inherit inputs;
