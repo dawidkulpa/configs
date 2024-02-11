@@ -26,6 +26,8 @@
     curl
     croc
     wget
+
+    btop
   ];
 
   # Enables the programs and uses my configuration for them.

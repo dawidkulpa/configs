@@ -348,7 +348,6 @@ in {
           '';
 
           # Why's it called 'o'? Because it's really good ;)
-          # I'm joking, it's just because it's on my home row (Colemak layout)
           o = {
             wraps = "cd";
             description = "Interactive cd that offers to create directories";
