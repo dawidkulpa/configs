@@ -18,7 +18,6 @@ in {
       settings = {
         cmd_duration = {
           min_time = 0;
-          show_miliseconds = true;
           show_notifications = true;
         };
       };
