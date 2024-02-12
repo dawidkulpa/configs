@@ -5,5 +5,6 @@
     ./helix.nix
     ./tealdeer
     ./tmux.nix
+    ./starship.nix
   ];
 }
