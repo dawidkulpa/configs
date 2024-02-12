@@ -116,6 +116,10 @@ in {
             name = "tide";
             src = inputs.fish-tide;
           }
+          {
+            name = "fzf-fish";
+            src = pkgs.fishPlugins.fzf-fish;
+          }
         ];
 
         interactiveShellInit = language "fish" ''

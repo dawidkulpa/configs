@@ -14,7 +14,7 @@
     # Find me stuff
     fd
     ripgrep
-    # fzf
+    fzf
     comma
 
     # File stuff
