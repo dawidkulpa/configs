@@ -208,7 +208,7 @@ in {
             bind '<' expand-abbr self-insert
             bind ')' expand-abbr self-insert
 
-            fzf_configure_bindings --git_status=\cs --git_log=\cg --history=\ch --variables=\cv --directory=\cf
+            #fzf_configure_bindings --git_status=\cs --git_log=\cg --history=\ch --variables=\cv --directory=\cf
           '';
 
           # Displays every path in $PATH on new lines.
