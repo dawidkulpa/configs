@@ -120,9 +120,19 @@ in {
             name = "fzf-fish";
             src = pkgs.fishPlugins.fzf-fish;
           }
+          {
+            name = "pj";
+            src = pkgs.fetchFromGitHub {
+              owner = "oh-my-fish";
+              repo = "pj";
+              rev = "43c94f24fd53a55cb6b01400b9b39eb3b6ed7e4e";
+              sha256 = "1z65m3w5fi3wfyfiflj9ycndimg3pnh318iv7q9jggybc7kkz1zz";
+            };
+          }
         ];
 
         interactiveShellInit = language "fish" ''
+          set -gx PROJECT_PATHS $HOME/projects
           # This isn't set by default
           set -g fish_color_option blue
 
@@ -202,6 +212,8 @@ in {
             bind '>' expand-abbr self-insert
             bind '<' expand-abbr self-insert
             bind ')' expand-abbr self-insert
+
+            fzf_configure_bindings --git_status=\cs --git_log=\cg --history=\ch --variables=\cv --directory=\cf
           '';
 
           # Displays every path in $PATH on new lines.
