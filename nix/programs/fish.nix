@@ -120,13 +120,22 @@ in {
             name = "fzf-fish";
             src = pkgs.fishPlugins.fzf-fish;
           }
+          # {
+          #   name = "pj";
+          #   src = pkgs.fetchFromGitHub {
+          #     owner = "oh-my-fish";
+          #     repo = "pj";
+          #     rev = "43c94f24fd53a55cb6b01400b9b39eb3b6ed7e4e";
+          #     sha256 = "1z65m3w5fi3wfyfiflj9ycndimg3pnh318iv7q9jggybc7kkz1zz";
+          #   };
+          # }
           {
-            name = "pj";
+            name = "fasd";
             src = pkgs.fetchFromGitHub {
               owner = "oh-my-fish";
-              repo = "pj";
-              rev = "43c94f24fd53a55cb6b01400b9b39eb3b6ed7e4e";
-              sha256 = "1z65m3w5fi3wfyfiflj9ycndimg3pnh318iv7q9jggybc7kkz1zz";
+              repo = "plugin-fasd";
+              rev = "38a5b6b6011106092009549e52249c6d6f501fba";
+              sha256 = "06v37hqy5yrv5a6ssd1p3cjd9y3hnp19d3ab7dag56fs1qmgyhbs";
             };
           }
         ];
