@@ -38,6 +38,7 @@
     tmux.enable = true;
     helix.enable = true;
     tealdeer.enable = true;
+    starship.enable = true;
   };
 
   # Enables programs that I don't have a more complicated config for.

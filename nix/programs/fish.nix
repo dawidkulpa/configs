@@ -103,10 +103,7 @@ in {
     })
 
     {
-      # This is used by so many functions that it's basically essential.
-      # I could reference it in each function, but annoyingly that breaks
-      # the syntax highlighting that I'm brutally forcing Helix to do.
-      home.packages = [pkgs.gum];
+      home.packages = [pkgs.gum pkgs.oh-my-fish];
 
       programs.fish = {
         enable = true;
