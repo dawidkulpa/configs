@@ -31,6 +31,11 @@
       flake = false;
     };
 
+    fish-pj = {
+      url = "github:oh-my-fish/plugin-pj";
+      flake = false;
+    };
+
     # I use tealdeer as a quick reference for some commands, but I want the
     # tldr page cache to be managed by my Nix setup instead.
     tldr-pages = {
