@@ -14,6 +14,12 @@ in {
   config = mkIf cfg.enable {
     programs.starship = {
       enable = true;
+
+      cmd_duration = {
+        min_time = 0;
+        show_miliseconds = true;
+        show_notifications = true;
+      };
     };
   };
 }
