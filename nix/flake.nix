@@ -64,7 +64,7 @@
       flake = false;
     };
 
-    inputs.agenix.url = "github:ryantm/agenix";
+    agenix.url = "github:ryantm/agenix";
   };
 
   outputs = inputs @ {
