@@ -36,8 +36,6 @@
       flake = false;
     };
 
-    # I use tealdeer as a quick reference for some commands, but I want the
-    # tldr page cache to be managed by my Nix setup instead.
     tldr-pages = {
       url = "github:tldr-pages/tldr";
       flake = false;
@@ -65,6 +63,8 @@
       url = "github:homebrew/homebrew-bundle";
       flake = false;
     };
+
+    inputs.agenix.url = "github:ryantm/agenix";
   };
 
   outputs = inputs @ {

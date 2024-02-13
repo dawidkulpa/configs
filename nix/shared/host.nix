@@ -10,7 +10,7 @@
 
   system.configurationRevision = inputs.self.rev or inputs.self.dirtyRev or null;
 
-  environment.systemPackages = with pkgs; [ ];
+  environment.systemPackages = with pkgs; [ inputs.agenix.packages.${pkgs.stdenv.system}.default ];
 
   nix.nixPath = lib.mkForce [
     "nixpkgs=${inputs.nixpkgs}"
