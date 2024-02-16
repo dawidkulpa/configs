@@ -77,6 +77,7 @@
     homebrew-core,
     homebrew-cask,
     homebrew-bundle,
+    agenix,
     ...
   }: let
     home-manager-buggy = path: {
@@ -109,6 +110,7 @@
             home-manager.darwinModules.default
             (home-manager-buggy ./systems/macbookIntel/home.nix)
             ./systems/macbookIntel/host.nix
+            agenix.darwinModules.default
           ];
           specialArgs = {
             inherit inputs;
@@ -123,6 +125,7 @@
             home-manager.nixosModules.default
             (home-manager-buggy ./systems/pc/home.nix)
             ./systems/pc/host.nix
+            agenix.nixosModules.default
           ];
           specialArgs = {
             inherit inputs;
@@ -136,6 +139,7 @@
             nixos-wsl.nixosModules.default
             (home-manager-buggy ./systems/wsl/home.nix)
             ./systems/wsl/host.nix
+            agenix.nixosModules.default
           ];
           specialArgs = {
             inherit inputs;
@@ -148,6 +152,7 @@
             home-manager.nixosModules.default
             (home-manager-buggy-s ./systems/server/home.nix)
             ./systems/server/host.nix
+            agenix.nixosModules.default
           ];
           specialArgs = {
             inherit inputs;
