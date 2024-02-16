@@ -4,7 +4,7 @@
   ...
 }:
 with lib; let
-  cfg = config.programs.k3s;
+  cfg = config.my.programs.k3s;
 in {
   options.my.programs.k3s = {
     enable = mkEnableOption "my k3s configuration";
