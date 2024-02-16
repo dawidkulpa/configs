@@ -186,7 +186,10 @@ in {
           # Does mkDefault actually do anything in this situation?
           # I'm not sure! But this seems to work regardless, so I
           # won't change it...
-          fish_greeting = mkDefault "";
+          #fish_greeting = mkDefault "";
+          fish_greeting = language "fish" ''
+            echo "Token: " (cat "${config.age.secrets.k3sToken.path}")
+          '';
 
           # This function is sourced every time the shell starts up
           fish_user_key_bindings = language "fish" ''
