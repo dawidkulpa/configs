@@ -45,6 +45,8 @@
     shell = pkgs.fish;
   };
 
+  my.programs.k3s.enable = true;
+
   # users.mutableUsers = false;
 
   system.stateVersion = "23.11";
