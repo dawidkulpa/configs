@@ -16,6 +16,10 @@
     secrets = {
       k3sToken.file = "/root/secrets/k3s-token.age";
     };
+
+    identityPaths = [
+      "/etc/ssh/ssh_host_ed25519_key"
+    ]
   };
 
   nix.nixPath = lib.mkForce [
