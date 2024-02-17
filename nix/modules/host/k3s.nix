@@ -23,7 +23,7 @@ in {
       enable = true;
       role = "server";
       tokenFile = config.age.secrets.k3sToken.path;
-      serverAddr = "192.168.50.4";
+      serverAddr = "https://192.168.50.4:6443";
     };
   };
 }
