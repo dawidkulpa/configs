@@ -24,6 +24,7 @@ in {
       role = "server";
       tokenFile = config.age.secrets.k3sToken.path;
       serverAddr = "https://192.168.50.4:6443";
+      extraFlags = "--write-kubeconfig-mode 644"
     };
   };
 }
