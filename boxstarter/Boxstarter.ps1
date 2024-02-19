@@ -190,6 +190,7 @@ powercfg -change -hibernate-timeout-ac 0
 ###################################
 
 cinst Microsoft-Windows-Subsystem-Linux -source windowsFeatures
+cinst VirtualMachinePlatform -source windowsFeatures
 cinst TelnetClient -source windowsFeatures
 
 #######
