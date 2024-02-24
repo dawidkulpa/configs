@@ -8,7 +8,7 @@
 with lib; let
   cfg = config.my.programs.helix;
   language = name: text: text;
-  myTheme = "gruvbox_clo4";
+  myTheme = "catppuccin_mocha";
 in {
   options = {
     my.programs.helix.enable = mkEnableOption "my helix configuration";
@@ -60,6 +60,7 @@ in {
           idle-timeout = 0;
           completion-trigger-len = 1;
           bufferline = "multiple";
+          cursorline = true;
         };
 
         editor.statusline = {
@@ -80,7 +81,7 @@ in {
 
         editor.indent-guides = {
           render = true;
-          character = "▏";
+          #character = "▏";
           skip-levels = 1;
         };
 

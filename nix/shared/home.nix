@@ -28,6 +28,9 @@
     wget
 
     btop
+
+    # dev
+    bun
   ];
 
   # Enables the programs and uses my configuration for them.

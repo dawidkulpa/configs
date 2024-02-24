@@ -38,7 +38,6 @@ in {
 
       programs.nix-index.enable = true;
       programs.nix-index.enableFishIntegration = false;
-
       programs.fish.functions.fish_command_not_found = language "fish" ''
         if string match -q -- '*/*' $argv[1]
           __fish_default_command_not_found_handler $argv
@@ -115,7 +114,7 @@ in {
           }
           {
             name = "fzf-fish";
-            src = pkgs.fishPlugins.fzf-fish;
+            src = inputs.fish-fzf;
           }
           {
             name = "pj";
@@ -181,7 +180,6 @@ in {
           abbr -a "..."  "cd ../.."
           abbr -a "...." "cd ../../.."
         '';
-
         functions = {
           # Does mkDefault actually do anything in this situation?
           # I'm not sure! But this seems to work regardless, so I
@@ -205,7 +203,7 @@ in {
             bind '<' expand-abbr self-insert
             bind ')' expand-abbr self-insert
 
-            #fzf_configure_bindings --git_status=\cs --git_log=\cg --history=\ch --variables=\cv --directory=\cf
+            fzf_configure_bindings --git_status=\cs --git_log=\cg --history=\ch --variables=\cv --directory=\cf
           '';
 
           # Displays every path in $PATH on new lines.

@@ -19,12 +19,10 @@
     # hashedPassword = "";
   };
 
-
   # users.mutableUsers = false;
 
   # security.sudo.wheelNeedsPassword = true;
   # users.users.root.hashedPassword = "";
-
   networking.hostName = "nixosWSL";
 
   system.stateVersion = "23.11";

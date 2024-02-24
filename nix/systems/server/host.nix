@@ -47,6 +47,7 @@
 
   my.programs.k3s.enable = true;
 
+  age.secrets.k3sToken.file = "/root/secrets/k3s-token.age";
   # users.mutableUsers = false;
 
   system.stateVersion = "23.11";

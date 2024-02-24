@@ -2,7 +2,7 @@
   description = "NixOS & nix-darwin configuration";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
 
     flake-utils.url = "github:numtide/flake-utils";
 
@@ -17,7 +17,7 @@
     };
 
     home-manager = {
-      url = "github:nix-community/home-manager/master";
+      url = "github:nix-community/home-manager/release-23.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -33,6 +33,11 @@
 
     fish-pj = {
       url = "github:oh-my-fish/plugin-pj";
+      flake = false;
+    };
+
+    fish-fzf = {
+      url = "github:PatrickF1/fzf.fish";
       flake = false;
     };
 

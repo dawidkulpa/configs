@@ -10,11 +10,10 @@
 
   system.configurationRevision = inputs.self.rev or inputs.self.dirtyRev or null;
 
-  environment.systemPackages = with pkgs; [ inputs.agenix.packages.${pkgs.stdenv.system}.default ];
+  environment.systemPackages = with pkgs; [inputs.agenix.packages.${pkgs.stdenv.system}.default];
 
   age = {
     secrets = {
-      k3sToken.file = "/root/secrets/k3s-token.age";
     };
 
     identityPaths = [
