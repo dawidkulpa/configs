@@ -11,13 +11,13 @@ in {
   };
 
   config = mkIf cfg.enable {
-    networking.firewall.allowedTCPPorts = [ 
+    networking.firewall.allowedTCPPorts = [
       6443
       2379 # etcd
       2380 # etcd
     ];
 
-    networking.firewall.allowedUDPPorts = [ 8472 ]; # flannel
+    networking.firewall.allowedUDPPorts = [8472]; # flannel
 
     services.k3s = {
       enable = true;
@@ -26,5 +26,7 @@ in {
       serverAddr = "https://192.168.50.4:6443";
       extraFlags = "--write-kubeconfig-mode 644";
     };
+
+    home.packages = [pkgs.kubernetes-helm];
   };
 }
