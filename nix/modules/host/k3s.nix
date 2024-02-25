@@ -12,6 +12,8 @@ in {
   };
 
   config = mkIf cfg.enable {
+    environment.systemPackages = [pkgs.kubernetes-helm];
+
     networking.firewall.allowedTCPPorts = [
       6443
       2379 # etcd
@@ -27,7 +29,5 @@ in {
       serverAddr = "https://192.168.50.4:6443";
       extraFlags = "--write-kubeconfig-mode 644";
     };
-
-    environment.systemPackages = [pkgs.kubernetes-helm];
   };
 }
