@@ -28,6 +28,7 @@
     wget
 
     btop
+    iperf
 
     # dev
     bun
