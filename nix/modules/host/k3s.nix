@@ -13,7 +13,7 @@ in {
 
   config = mkIf cfg.enable {
     environment.systemPackages = [pkgs.kubernetes-helm];
-
+    environment.variables.KUBECONFIG = "/etc/rancher/k3s/k3s.yaml";
     networking.firewall.allowedTCPPorts = [
       6443
       2379 # etcd
