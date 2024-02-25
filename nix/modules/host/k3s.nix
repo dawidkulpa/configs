@@ -28,6 +28,6 @@ in {
       extraFlags = "--write-kubeconfig-mode 644";
     };
 
-    home.packages = [pkgs.kubernetes-helm];
+    environment.systemPackages = [pkgs.kubernetes-helm];
   };
 }
