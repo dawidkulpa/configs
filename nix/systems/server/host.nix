@@ -46,6 +46,8 @@
     shell = pkgs.fish;
   };
 
+  powerManagement.powertop.enable = true;
+
   my.programs.k3s.enable = true;
 
   age.secrets.k3sToken.file = "/root/secrets/k3s-token.age";
