@@ -32,6 +32,7 @@
 
     # dev
     bun
+    nodePackages.typescript-language-server
   ];
 
   # Enables the programs and uses my configuration for them.
