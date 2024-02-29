@@ -46,6 +46,8 @@
     shell = pkgs.fish;
   };
 
+  powerManagement.enable = true;
+  powerManagement.cpuFreqGovernor = "powersave";
   powerManagement.powertop.enable = true;
 
   my.programs.k3s.enable = true;
