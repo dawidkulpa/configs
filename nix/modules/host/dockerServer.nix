@@ -18,7 +18,7 @@ in {
       liveRestore = false;
     };
 
-    networking.firewall.allowedTCPPorts = [];
-    networking.firewall.allowedUDPPorts = [];
+    networking.firewall.allowedTCPPorts = [9443 8000 9000 9001 2377 7946];
+    networking.firewall.allowedUDPPorts = [7946 4789];
   };
 }
