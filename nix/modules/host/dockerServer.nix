@@ -15,6 +15,7 @@ in {
     virtualisation.docker = {
       enable = true;
       enableOnBoot = true;
+      liveRestore = false;
     };
 
     networking.firewall.allowedTCPPorts = [];
