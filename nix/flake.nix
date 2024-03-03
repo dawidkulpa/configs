@@ -163,6 +163,19 @@
             inherit inputs;
           };
         };
+
+        nixosDockerServer = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            home-manager.nixosModules.default
+            (home-manager-buggy-s ./systems/dockerServer/home.nix)
+            ./systems/dockerServer/host.nix
+            agenix.nixosModules.default
+          ];
+          specialArgs = {
+            inherit inputs;
+          };
+        };
       };
 
       templates = {
