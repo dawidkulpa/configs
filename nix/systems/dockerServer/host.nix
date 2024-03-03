@@ -50,7 +50,7 @@
   powerManagement.cpuFreqGovernor = "powersave";
   powerManagement.powertop.enable = true;
 
-  my.programs.docker.enable = true;
+  my.programs.dockerServer.enable = true;
 
   # users.mutableUsers = false;
 
