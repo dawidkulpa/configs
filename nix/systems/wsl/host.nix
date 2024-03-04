@@ -5,7 +5,10 @@
 
   wsl = {
     enable = true;
-    wslConf.automount.root = "/mnt";
+    wslConf = {
+      automount.root = "/mnt";
+      network.generateResolvConf = false;
+    };
     defaultUser = "buggy";
     startMenuLaunchers = true;
     nativeSystemd = true;
@@ -23,7 +26,13 @@
 
   # security.sudo.wheelNeedsPassword = true;
   # users.users.root.hashedPassword = "";
-  networking.hostName = "nixosWSL";
+  networking = {
+    hostName = "nixosWSL";
+    nameservers = [
+      "192.168.50.2"
+      "192.168.50.3"
+    ];
+  };
 
   system.stateVersion = "23.11";
 }
