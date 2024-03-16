@@ -1,4 +1,9 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}: {
   imports = [
     ../../shared/host.nix
   ];
@@ -12,13 +17,24 @@
     defaultUser = "buggy";
     startMenuLaunchers = true;
     nativeSystemd = true;
+    docker-desktop.enable = false;
+    extraBin = with pkgs; [
+      {src = "${coreutils}/bin/mkdir";}
+      {src = "${coreutils}/bin/cat";}
+      {src = "${coreutils}/bin/whoami";}
+      {src = "${coreutils}/bin/ls";}
+      {src = "${busybox}/bin/addgroup";}
+      {src = "${su}/bin/groupadd";}
+      {src = "${su}/bin/usermod";}
+    ];
   };
+  systemd.services.docker-desktop-proxy.script = lib.mkForce ''${config.wsl.wslConf.automount.root}/wsl/docker-desktop/docker-desktop-user-distro proxy --docker-desktop-root ${config.wsl.wslConf.automount.root}/wsl/docker-desktop "C:\Program Files\Docker\Docker\resources"'';
 
   users.users.buggy = {
     description = "Buggy";
     isNormalUser = true;
     shell = pkgs.fish;
-    extraGroups = ["wheel"];
+    extraGroups = ["wheel" "docker"];
     # hashedPassword = "";
   };
 
@@ -33,6 +49,16 @@
       "192.168.50.3"
     ];
   };
+
+  virtualisation.docker = {
+    enable = true;
+    enableOnBoot = true;
+    autoPrune.enable = true;
+  };
+
+  environment.systemPackages = with pkgs; [
+    lima
+  ];
 
   system.stateVersion = "23.11";
 }

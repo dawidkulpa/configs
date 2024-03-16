@@ -29,6 +29,8 @@
 
     btop
     iperf
+    dig
+    ookla-speedtest
 
     # dev
     bun
