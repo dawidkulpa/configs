@@ -60,5 +60,11 @@
     options = ["rw"];
   };
 
+  fileSystems."/mnt/nfs/pterodactyl-panel" = {
+    device = "nas.home:/mnt/nvme/docker-volumes/pterodactyl-panel";
+    fsType = "nfs4";
+    options = ["rw"];
+  };
+
   system.stateVersion = "23.11";
 }
