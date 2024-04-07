@@ -54,5 +54,11 @@
 
   # users.mutableUsers = false;
 
+  fileSystems."/mnt/nfs/traefik-edge" = {
+    device = "nas.home:/mnt/nvme/docker-volumes/traefik";
+    fsType = "nfs4";
+    options = ["rw"];
+  };
+
   system.stateVersion = "23.11";
 }
