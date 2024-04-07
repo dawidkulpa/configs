@@ -12,6 +12,7 @@
 
   environment.systemPackages = with pkgs; [
     inputs.agenix.packages.${pkgs.stdenv.system}.default
+    nfs-utils
   ];
 
   age = {
@@ -55,6 +56,11 @@
   nixpkgs.config = {
     allowUnfree = true;
   };
+
+  #nixpkgsUnstable.system = "x86_64-linux";
+  #nixpkgsUnstable.config = {
+  #  allowUnfree = true;
+  #};
 
   # This needs to be set to get the default system-level fish configuration, such
   # as completions for Nix and related tools. This is also required because on macOS

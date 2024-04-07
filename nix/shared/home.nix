@@ -31,9 +31,10 @@
     iperf
     dig
     ookla-speedtest
+    cfspeedtest
 
     # dev
-    bun
+    unstable.bun
     nodePackages.typescript-language-server
   ];
 

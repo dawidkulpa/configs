@@ -2,7 +2,8 @@
   description = "NixOS & nix-darwin configuration";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
+    nixpkgs.url = "nixpkgs/nixos-23.11";
+    nixpkgsUnstable.url = "nixpkgs/nixos-unstable";
 
     flake-utils.url = "github:numtide/flake-utils";
 
@@ -74,6 +75,7 @@
 
   outputs = inputs @ {
     nixpkgs,
+    nixpkgsUnstable,
     nixos-wsl,
     home-manager,
     darwin,
@@ -123,10 +125,17 @@
         };
       };
 
-      nixosConfigurations = {
+      nixosConfigurations = let
+        overlay-unstable = final: prev: {
+          unstable = import nixpkgsUnstable {
+            system = "x86_64-linux";
+            config.allowUnfree = true;
+          };
+        };
+      in {
         nixosPC = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
           modules = [
+            ({...}: {nixpkgs.overlays = [overlay-unstable];})
             home-manager.nixosModules.default
             (home-manager-buggy ./systems/pc/home.nix)
             ./systems/pc/host.nix
@@ -140,6 +149,7 @@
         nixosWSL = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           modules = [
+            ({...}: {nixpkgs.overlays = [overlay-unstable];})
             home-manager.nixosModules.default
             nixos-wsl.nixosModules.default
             (home-manager-buggy ./systems/wsl/home.nix)
@@ -152,8 +162,8 @@
         };
 
         nixosServer = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
           modules = [
+            ({...}: {nixpkgs.overlays = [overlay-unstable];})
             home-manager.nixosModules.default
             (home-manager-buggy-s ./systems/server/home.nix)
             ./systems/server/host.nix
@@ -165,8 +175,8 @@
         };
 
         nixosDockerServer = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
           modules = [
+            ({...}: {nixpkgs.overlays = [overlay-unstable];})
             home-manager.nixosModules.default
             (home-manager-buggy-s ./systems/dockerServer/home.nix)
             ./systems/dockerServer/host.nix
