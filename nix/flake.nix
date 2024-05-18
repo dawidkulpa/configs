@@ -203,6 +203,7 @@
         packages = with pkgs; [
           nil
           alejandra
+          libstdcxx
         ];
       };
     });

@@ -60,5 +60,23 @@
     lima
   ];
 
+  fileSystems."/mnt/nfs/traefik-edge" = {
+    device = "nas.home:/mnt/nvme/docker-volumes/traefik-edge";
+    fsType = "nfs4";
+    options = ["rw"];
+  };
+
+  fileSystems."/mnt/nfs/pve-shared" = {
+    device = "nas.home:/mnt/nvme/pve-shared";
+    fsType = "nfs4";
+    options = ["rw"];
+  };
+
+  fileSystems."/mnt/nfs/dev" = {
+    device = "nas.home:/mnt/nvme/dev";
+    fsType = "nfs4";
+    options = ["rw"];
+  };
+
   system.stateVersion = "23.11";
 }

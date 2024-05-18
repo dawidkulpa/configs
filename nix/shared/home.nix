@@ -36,6 +36,7 @@
     # dev
     unstable.bun
     nodePackages.typescript-language-server
+    poetry
   ];
 
   # Enables the programs and uses my configuration for them.

@@ -13,6 +13,9 @@
   environment.systemPackages = with pkgs; [
     inputs.agenix.packages.${pkgs.stdenv.system}.default
     nfs-utils
+    libgcc
+    google-chrome
+    chromedriver
   ];
 
   age = {
