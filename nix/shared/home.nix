@@ -21,6 +21,7 @@
     eza
     jq
     glow
+    unzip
 
     # File transfer stuff
     curl
