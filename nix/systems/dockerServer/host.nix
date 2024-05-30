@@ -12,7 +12,6 @@
 
   # Bootloader.
   boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/vda";
 
   networking = {
     # hostName = "nixos";
@@ -53,18 +52,6 @@
   my.programs.dockerServer.enable = true;
 
   # users.mutableUsers = false;
-
-  fileSystems."/mnt/nfs/traefik-edge" = {
-    device = "nas.home:/mnt/nvme/docker-volumes/traefik-edge";
-    fsType = "nfs4";
-    options = ["rw"];
-  };
-
-  fileSystems."/mnt/nfs/pterodactyl-panel" = {
-    device = "nas.home:/mnt/nvme/docker-volumes/pterodactyl-panel";
-    fsType = "nfs4";
-    options = ["rw"];
-  };
 
   system.stateVersion = "23.11";
 }
