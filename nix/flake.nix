@@ -1,8 +1,8 @@
 {
-  description = "NixOS & nix-darwin configuration";
+  description = "NixOS configuration";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-23.11";
+    nixpkgs.url = "nixpkgs/nixos-24.05";
     nixpkgsUnstable.url = "nixpkgs/nixos-unstable";
 
     flake-utils.url = "github:numtide/flake-utils";
@@ -12,13 +12,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    darwin = {
-      url = "github:LnL7/nix-darwin/master";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     home-manager = {
-      url = "github:nix-community/home-manager/release-23.11";
+      url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -78,7 +73,6 @@
     nixpkgsUnstable,
     nixos-wsl,
     home-manager,
-    darwin,
     flake-utils,
     nix-homebrew,
     homebrew-core,
@@ -110,21 +104,6 @@
     };
   in
     {
-      darwinConfigurations = {
-        macbookIntel = darwin.lib.darwinSystem {
-          system = "x86_64-darwin";
-          modules = [
-            home-manager.darwinModules.default
-            (home-manager-buggy ./systems/macbookIntel/home.nix)
-            ./systems/macbookIntel/host.nix
-            agenix.darwinModules.default
-          ];
-          specialArgs = {
-            inherit inputs;
-          };
-        };
-      };
-
       nixosConfigurations = let
         overlay-unstable = final: prev: {
           unstable = import nixpkgsUnstable {

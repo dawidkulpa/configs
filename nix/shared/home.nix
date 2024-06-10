@@ -4,7 +4,7 @@
     ../modules/home
   ];
 
-  home.stateVersion = "23.11";
+  home.stateVersion = "24.05";
 
   home.packages = with pkgs; [
     # Editors that I sometimes want to play with
