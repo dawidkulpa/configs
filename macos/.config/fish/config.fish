@@ -1,4 +1,5 @@
-set -gx PROJECT_PATHS ~/projects
+# fix path for when default shell is changed to fish
+source ~/.zprofile
 
 if status is-interactive
     # Commands to run in interactive sessions can go here
@@ -9,12 +10,8 @@ if test (uname -s) = "Darwin"
   set -gx PATH /usr/local/opt/gnu-sed/libexec/gnubin $PATH
 end
 
-if type -q exa
-  alias ll "exa -l -g --icons"
-  alias lla "ll -a"
-end
-
 fzf_configure_bindings --git_status=\cs --history=\ch --variables=\cv --directory=\cf --git_log=\cg
 
+starship init fish | source
 thefuck --alias | source
 zoxide init fish | source
