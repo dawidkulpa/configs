@@ -59,6 +59,7 @@ brew install zoxide
 brew install tealdeer
 brew install bat
 brew install thefuck
+brew install fnm
 
 # Clean Up Brew
 brew cleanup
