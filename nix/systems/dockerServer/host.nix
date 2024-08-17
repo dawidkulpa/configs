@@ -62,6 +62,8 @@
   services.logrotate = {
     settings = {
       "/mnt/nfs/traefik-edge/etc/acces*.log" = {
+        user = "3004";
+        group = "3004";
         size = "5M";
         frequency = "daily";
         rotate = 20;
