@@ -12,18 +12,6 @@
     fsType = "vfat";
   };
 
-  fileSystems."/mnt/nfs/traefik-edge" = {
-    device = "nas.home:/mnt/nvme/docker-volumes/traefik-edge";
-    fsType = "nfs4";
-    options = ["rw"];
-  };
-
-  fileSystems."/mnt/nfs/pterodactyl-panel" = {
-    device = "nas.home:/mnt/nvme/docker-volumes/pterodactyl-panel";
-    fsType = "nfs4";
-    options = ["rw"];
-  };
-
   swapDevices = [];
   networking.hostName = "docker-exposed";
 }

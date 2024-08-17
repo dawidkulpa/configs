@@ -70,6 +70,12 @@
     options = ["rw"];
   };
 
+  fileSystems."/mnt/nfs/pterodactyl-panel" = {
+    device = "nas.home:/mnt/nvme/docker-volumes/pterodactyl-panel";
+    fsType = "nfs4";
+    options = ["rw"];
+  };
+
   services.logrotate = {
     settings = {
       "/mnt/nfs/traefik-edge/etc/acces*.log" = {
