@@ -87,6 +87,8 @@
         postrotate = ''
           docker kill --signal="USR1" $(docker ps --filter "name=traefik_edge" --format "{{.ID}}")
         '';
+        sharedscripts = true;
+        dateext = true;
       };
     };
   };
