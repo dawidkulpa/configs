@@ -79,6 +79,7 @@
   services.logrotate = {
     settings = {
       "/mnt/nfs/traefik-edge/etc/acces*.log" = {
+        compress = true;
         su = "docker-nfs docker-nfs";
         size = "5M";
         frequency = "hourly";
