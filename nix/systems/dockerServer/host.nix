@@ -67,7 +67,7 @@
         rotate = 20;
         postrotate = ''
           docker kill --signal="USR1" traefik_edge
-        ''
+        '';
       };
     };
   };
