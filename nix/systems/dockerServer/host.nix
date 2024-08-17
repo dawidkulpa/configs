@@ -45,6 +45,17 @@
     shell = pkgs.fish;
   };
 
+  users.groups.docker-nfs = {
+    gid = 3004;
+  };
+
+  users.users.docker-nfs = {
+    createHome = false;
+    group = "docker-nfs";
+    uid = 3004;
+    isSystemUser = true;
+  };
+
   powerManagement.enable = true;
   powerManagement.cpuFreqGovernor = "powersave";
   powerManagement.powertop.enable = true;
@@ -62,10 +73,9 @@
   services.logrotate = {
     settings = {
       "/mnt/nfs/traefik-edge/etc/acces*.log" = {
-        user = "3004";
-        group = "3004";
+        su = "docker-nfs docker-nfs";
         size = "5M";
-        frequency = "daily";
+        frequency = "hourly";
         rotate = 20;
         postrotate = ''
           docker kill --signal="USR1" traefik_edge
