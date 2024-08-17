@@ -70,6 +70,12 @@
     options = ["rw"];
   };
 
+  fileSystems."/mnt/nfs/traefik" = {
+    device = "nas.home:/mnt/nvme/docker-volumes/traefik";
+    fsType = "nfs4";
+    options = ["rw"];
+  };
+
   fileSystems."/mnt/nfs/pterodactyl-panel" = {
     device = "nas.home:/mnt/nvme/docker-volumes/pterodactyl-panel";
     fsType = "nfs4";
@@ -85,7 +91,20 @@
         frequency = "hourly";
         rotate = 20;
         postrotate = ''
-          docker kill --signal="USR1" $(docker ps --filter "name=traefik_edge" --format "{{.ID}}")
+          docker kill --signal="USR1" $(docker node ps $(docker node ls -q) --filter desired-state=Running --filter name=traefik_edge --format "{{.ID}}" | tail -n 1)
+        '';
+        sharedscripts = true;
+        dateext = true;
+      };
+
+      "/mnt/nfs/traefik/etc/acces*.log" = {
+        compress = true;
+        su = "docker-nfs docker-nfs";
+        size = "5M";
+        frequency = "hourly";
+        rotate = 20;
+        postrotate = ''
+          docker kill --signal="USR1" $(docker node ps $(docker node ls -q) --filter desired-state=Running --filter name=traefik_github --format "{{.ID}}" | tail -n 1)
         '';
         sharedscripts = true;
         dateext = true;
