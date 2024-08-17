@@ -16,6 +16,7 @@
     libgcc
     google-chrome
     chromedriver
+    logrotate
   ];
 
   age = {

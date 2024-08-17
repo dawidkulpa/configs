@@ -118,6 +118,7 @@ in {
           # Searching for a selection probably shouldn't have whitespace included.
           # Makes sense to keep the default keybind in select mode though?
           "*" = ["trim_selections" "search_selection"];
+          "#" = ["toggle_comments"];
         };
 
         keys.normal.Z = let

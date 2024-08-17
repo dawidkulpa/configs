@@ -60,6 +60,12 @@
     lima
   ];
 
+  fileSystems."/mnt/nfs/traefik" = {
+    device = "nas.home:/mnt/nvme/docker-volumes/traefik";
+    fsType = "nfs4";
+    options = ["rw"];
+  };
+
   fileSystems."/mnt/nfs/traefik-edge" = {
     device = "nas.home:/mnt/nvme/docker-volumes/traefik-edge";
     fsType = "nfs4";
@@ -74,6 +80,36 @@
 
   fileSystems."/mnt/nfs/dev" = {
     device = "nas.home:/mnt/nvme/dev";
+    fsType = "nfs4";
+    options = ["rw"];
+  };
+
+  fileSystems."/mnt/nfs/file-server" = {
+    device = "nas.home:/mnt/nvme/docker-volumes/file-server";
+    fsType = "nfs4";
+    options = ["rw"];
+  };
+
+  fileSystems."/mnt/nfs/n8n" = {
+    device = "nas.home:/mnt/nvme/docker-volumes/n8n";
+    fsType = "nfs4";
+    options = ["rw"];
+  };
+
+  fileSystems."/mnt/nfs/frigate" = {
+    device = "nas.home:/mnt/nvme/docker-volumes/frigate";
+    fsType = "nfs4";
+    options = ["rw"];
+  };
+
+  fileSystems."/mnt/nfs/duplicati" = {
+    device = "nas.home:/mnt/nvme/docker-volumes/duplicati";
+    fsType = "nfs4";
+    options = ["rw"];
+  };
+
+  fileSystems."/mnt/nfs/replicas" = {
+    device = "nas.home:/mnt/nvme/replicas";
     fsType = "nfs4";
     options = ["rw"];
   };
