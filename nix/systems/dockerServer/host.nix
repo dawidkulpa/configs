@@ -84,7 +84,7 @@
         frequency = "hourly";
         rotate = 20;
         postrotate = ''
-          docker kill --signal="USR1" traefik_edge
+          docker kill --signal="USR1" $(docker ps --filter "name=traefik_edge" --format "{{.ID}}")
         '';
       };
     };
