@@ -53,5 +53,24 @@
 
   # users.mutableUsers = false;
 
+  fileSystems."/mnt/nfs/traefik-edge" = {
+    device = "nas.home:/mnt/nvme/docker-volumes/traefik-edge";
+    fsType = "nfs4";
+    options = ["rw"];
+  };
+
+  services.logrotate = {
+    settings = {
+      "/mnt/nfs/traefik-edge/etc/acces*.log" = {
+        size = "5M";
+        frequency = "daily";
+        rotate = 20;
+        postrotate = ''
+          docker kill --signal="USR1" traefik_edge
+        ''
+      };
+    };
+  };
+
   system.stateVersion = "24.05";
 }
