@@ -91,7 +91,7 @@
         frequency = "hourly";
         rotate = 20;
         postrotate = ''
-          docker kill --signal="USR1" $(docker node ps $(docker node ls -q) --filter desired-state=Running --filter name=traefik_edge --format "{{.ID}}" | tail -n 1)
+          docker service update --force $(docker service ls --filter name=traefik_edge --format "{{.ID}}")
         '';
         sharedscripts = true;
         dateext = true;
@@ -104,7 +104,7 @@
         frequency = "hourly";
         rotate = 20;
         postrotate = ''
-          docker kill --signal="USR1" $(docker node ps $(docker node ls -q) --filter desired-state=Running --filter name=traefik_github --format "{{.ID}}" | tail -n 1)
+          docker service update --force $(docker service ls --filter name=traefik_github --format "{{.ID}}")
         '';
         sharedscripts = true;
         dateext = true;
