@@ -91,10 +91,9 @@
         frequency = "hourly";
         rotate = 20;
         postrotate = ''
-          docker service update --force $(docker service ls --filter name=traefik_edge --format "{{.ID}}")
+          sudo docker service update --force $(docker service ls --filter name=traefik_edge --format "{{.ID}}")
         '';
         sharedscripts = true;
-        dateext = true;
       };
 
       "/mnt/nfs/traefik/etc/acces*.log" = {
@@ -104,10 +103,9 @@
         frequency = "hourly";
         rotate = 20;
         postrotate = ''
-          docker service update --force $(docker service ls --filter name=traefik_github --format "{{.ID}}")
+          sudo docker service update --force $(docker service ls --filter name=traefik_github --format "{{.ID}}")
         '';
         sharedscripts = true;
-        dateext = true;
       };
     };
   };
