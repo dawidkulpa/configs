@@ -91,7 +91,7 @@
         frequency = "hourly";
         rotate = 20;
         postrotate = ''
-          $(which docker) service update --force $(docker service ls --filter name=traefik_edge --format "{{.ID}}")
+          /run/current-system/sw/bin/su -c buggy docker service update --force $(docker service ls --filter name=traefik_edge --format "{{.ID}}")
         '';
         sharedscripts = true;
       };
@@ -103,7 +103,7 @@
         frequency = "hourly";
         rotate = 20;
         postrotate = ''
-          $(which docker) service update --force $(docker service ls --filter name=traefik_github --format "{{.ID}}")
+          /run/current-system/sw/bin/su -c buggy docker service update --force $(docker service ls --filter name=traefik_github --format "{{.ID}}")
         '';
         sharedscripts = true;
       };
