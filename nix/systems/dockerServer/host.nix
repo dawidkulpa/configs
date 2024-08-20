@@ -87,11 +87,11 @@
       "/mnt/nfs/traefik-edge/etc/acces*.log" = {
         compress = true;
         su = "docker-nfs docker-nfs";
-        size = "5M";
+        size = "10M";
         frequency = "hourly";
         rotate = 20;
         postrotate = ''
-          /run/current-system/sw/bin/su buggy -c /run/current-system/sw/bin/docker service update --force $(/run/current-system/sw/bin/docker service ls --filter name=traefik_edge --format "{{.ID}}")
+          /run/current-system/sw/bin/su buggy -c "/run/current-system/sw/bin/docker service update --force $(/run/current-system/sw/bin/docker service ls --filter name=traefik_edge --format \"{{.ID}}\")"
         '';
         sharedscripts = true;
       };
@@ -99,11 +99,11 @@
       "/mnt/nfs/traefik/etc/acces*.log" = {
         compress = true;
         su = "docker-nfs docker-nfs";
-        size = "5M";
+        size = "10M";
         frequency = "hourly";
         rotate = 20;
         postrotate = ''
-          /run/current-system/sw/bin/su buggy -c /run/current-system/sw/bin/docker service update --force $(/run/current-system/sw/bin/docker service ls --filter name=traefik_github --format "{{.ID}}")
+          /run/current-system/sw/bin/su buggy -c "/run/current-system/sw/bin/docker service update --force $(/run/current-system/sw/bin/docker service ls --filter name=traefik_github --format \"{{.ID}}\")"
         '';
         sharedscripts = true;
       };
