@@ -114,5 +114,23 @@
     options = ["rw"];
   };
 
+  fileSystems."/mnt/nfs/speedtest" = {
+    device = "nas.home:/mnt/nvme/docker-volumes/speedtest";
+    fsType = "nfs4";
+    options = ["rw"];
+  };
+
+  fileSystems."/mnt/nfs/speedtest-influxdb" = {
+    device = "nas.home:/mnt/nvme/docker-volumes/speedtest-influxdb";
+    fsType = "nfs4";
+    options = ["rw"];
+  };
+
+  fileSystems."/mnt/nfs/pterodactyl-panel" = {
+    device = "nas.home:/mnt/nvme/docker-volumes/pterodactyl-panel";
+    fsType = "nfs4";
+    options = ["rw"];
+  };
+
   system.stateVersion = "24.05";
 }

@@ -90,9 +90,9 @@
         size = "10M";
         frequency = "hourly";
         rotate = 20;
-        postrotate = ''
-          /run/current-system/sw/bin/su buggy -c "/run/current-system/sw/bin/docker service update --force $(/run/current-system/sw/bin/docker service ls --filter name=traefik_edge --format \"{{.ID}}\")"
-        '';
+        # postrotate = ''
+        # /run/current-system/sw/bin/su buggy -c "/run/current-system/sw/bin/docker service update --force $(/run/current-system/sw/bin/docker service ls --filter name=traefik_edge --format \"{{.ID}}\")"
+        # '';
         sharedscripts = true;
       };
 
@@ -102,9 +102,9 @@
         size = "10M";
         frequency = "hourly";
         rotate = 20;
-        postrotate = ''
-          /run/current-system/sw/bin/su buggy -c "/run/current-system/sw/bin/docker service update --force $(/run/current-system/sw/bin/docker service ls --filter name=traefik_github --format \"{{.ID}}\")"
-        '';
+        # postrotate = ''
+        # /run/current-system/sw/bin/su buggy -c "/run/current-system/sw/bin/docker service update --force $(/run/current-system/sw/bin/docker service ls --filter name=traefik_github --format \"{{.ID}}\")"
+        # '';
         sharedscripts = true;
       };
     };
