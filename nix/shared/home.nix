@@ -24,7 +24,7 @@
     unzip
 
     # File transfer stuff
-    curl
+    curlHTTP3
     croc
     wget
 
