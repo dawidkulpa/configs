@@ -322,6 +322,8 @@ choco install autodesk-fusion360 -y
 choco install yubikey-manager -y
 choco install yubico-authenticator -y
 
+# Automatic software updates
+choco install choco-upgrade-all-at --params "'/WEEKLY:yes /DAY:SUN /TIME:11:00 /ABORTTIME:13:00'"
 #######
 # Entertainment
 #######
