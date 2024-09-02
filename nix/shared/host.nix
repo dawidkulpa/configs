@@ -46,6 +46,11 @@
     ];
   };
 
+  nix.optimise = {
+    automatic = true;
+    dates = ["01:00"];
+  };
+
   nix.registry = {
     # Makes `nix run nixpkgs#...` run using the nixpkgs from this flake
     nixpkgs.flake = inputs.nixpkgs;
