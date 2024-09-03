@@ -51,6 +51,13 @@
     dates = ["01:00"];
   };
 
+  # removing old generations
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 30d";
+  };
+
   nix.registry = {
     # Makes `nix run nixpkgs#...` run using the nixpkgs from this flake
     nixpkgs.flake = inputs.nixpkgs;
