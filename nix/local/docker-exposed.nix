@@ -12,6 +12,11 @@
     fsType = "vfat";
   };
 
+  services.fstrim = {
+    enable = true;
+    interval = "weekly";
+  };
+
   swapDevices = [];
   networking.hostName = "docker-exposed";
 }
