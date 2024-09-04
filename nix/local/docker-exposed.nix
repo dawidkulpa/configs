@@ -18,11 +18,14 @@
   };
 
   systemd.services.freeMemory = {
-    description = "nix optimise makes a big blueprint on memory, which doesn't work well with proxmox's discard, so this should free up the memory once a day";
+    description = "nix optimise leaves a big blueprint on memory, which doesn't work well with proxmox's discard, so this should free up the memory whenever nix-optimise is run";
     after = ["nix-optimise.service"];
-    script = ''
-      sh -c "echo 1 > /proc/sys/vm/drop_caches"
-    '';
+    requires = ["nix-optimise.service"];
+    wantedBy = ["nix-optimise.service"];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = ''sh -c "echo 1 > /proc/sys/vm/drop_caches"'';
+    };
   };
 
   swapDevices = [];
