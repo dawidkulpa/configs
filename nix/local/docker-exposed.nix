@@ -25,7 +25,7 @@
     serviceConfig = {
       Type = "oneshot";
       User = "root";
-      ExecStart = ''sh -c "echo 1 > /proc/sys/vm/drop_caches"'';
+      ExecStart = ''echo 1 > /proc/sys/vm/drop_caches'';
     };
   };
 
