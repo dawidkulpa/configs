@@ -18,12 +18,13 @@
   };
 
   systemd.services.freeMemory = {
-    description = "nix optimise leaves a big blueprint on memory, which doesn't work well with proxmox's discard, so this should free up the memory whenever nix-optimise is run";
+    description = "Free memory after nix-optimise.service is run";
     after = ["nix-optimise.service"];
     requires = ["nix-optimise.service"];
     wantedBy = ["nix-optimise.service"];
     serviceConfig = {
       Type = "oneshot";
+      User = "root";
       ExecStart = ''sh -c "echo 1 > /proc/sys/vm/drop_caches"'';
     };
   };
