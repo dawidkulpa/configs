@@ -132,5 +132,23 @@
     options = ["rw"];
   };
 
+  fileSystems."/mnt/nfs/pterodactyl-wings" = {
+    device = "nas.home:/mnt/nvme/docker-volumes/pterodactyl-wings";
+    fsType = "nfs4";
+    options = ["rw"];
+  };
+
+  fileSystems."/mnt/nfs/crowdsec" = {
+    device = "nas.home:/mnt/nvme/docker-volumes/crowdsec";
+    fsType = "nfs4";
+    options = ["rw"];
+  };
+
+  fileSystems."/mnt/nfs/grafana" = {
+    device = "nas.home:/mnt/nvme/docker-volumes/grafana";
+    fsType = "nfs4";
+    options = ["rw"];
+  };
+
   system.stateVersion = "24.05";
 }

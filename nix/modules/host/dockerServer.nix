@@ -16,6 +16,7 @@ in {
       enable = true;
       enableOnBoot = true;
       liveRestore = false;
+      package = pkgs.docker_27;
     };
 
     networking.firewall.allowedTCPPorts = [9443 8000 9000 9001 2377 7946];
