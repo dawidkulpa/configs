@@ -17,6 +17,13 @@ in {
       enableOnBoot = true;
       liveRestore = false;
       package = pkgs.docker_27;
+      daemon.settings = {
+        "log-driver" = "loki";
+        "log-opts" = {
+          "loki-url" = "http://loki.home:3100/loki/api/v1/push";
+          "loki-batch-size" = "400";
+        };
+      };
     };
 
     networking.firewall.allowedTCPPorts = [9443 8000 9000 9001 2377 7946];
