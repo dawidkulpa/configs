@@ -150,5 +150,35 @@
     options = ["rw"];
   };
 
+  fileSystems."/mnt/nfs/pmm" = {
+    device = "nas.home:/mnt/nvme/docker-volumes/pmm";
+    fsType = "nfs4";
+    options = ["rw"];
+  };
+
+  fileSystems."/mnt/nfs/rsync-server" = {
+    device = "nas.home:/mnt/nvme/rsync-server";
+    fsType = "nfs4";
+    options = ["rw"];
+  };
+
+  fileSystems."/mnt/nfs/prometheus" = {
+    device = "nas.home:/mnt/nvme/docker-volumes/prometheus";
+    fsType = "nfs4";
+    options = ["rw"];
+  };
+
+  fileSystems."/mnt/nfs/victoriametrics" = {
+    device = "nas.home:/mnt/nvme/docker-volumes/victoriametrics";
+    fsType = "nfs4";
+    options = ["rw"];
+  };
+
+  fileSystems."/mnt/nfs/portainer" = {
+    device = "nas.home:/mnt/nvme/docker-volumes/portainer";
+    fsType = "nfs4";
+    options = ["rw"];
+  };
+
   system.stateVersion = "24.05";
 }
