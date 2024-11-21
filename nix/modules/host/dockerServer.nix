@@ -23,6 +23,7 @@ in {
           "loki-url" = "http://loki.home:3100/loki/api/v1/push";
           "loki-batch-size" = "400";
         };
+        "storage-opts" = ["overlay2.size=20G"];
       };
     };
 

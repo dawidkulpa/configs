@@ -157,7 +157,7 @@
   };
 
   fileSystems."/mnt/nfs/rsync-server" = {
-    device = "nas.home:/mnt/nvme/rsync-server";
+    device = "nas.home:/mnt/backup/rsync-server";
     fsType = "nfs4";
     options = ["rw"];
   };
@@ -176,6 +176,42 @@
 
   fileSystems."/mnt/nfs/portainer" = {
     device = "nas.home:/mnt/nvme/docker-volumes/portainer";
+    fsType = "nfs4";
+    options = ["rw"];
+  };
+
+  fileSystems."/mnt/nfs/paperless" = {
+    device = "nas.home:/mnt/nvme/docker-volumes/paperless";
+    fsType = "nfs4";
+    options = ["rw"];
+  };
+
+  fileSystems."/mnt/nfs/printer" = {
+    device = "nas.home:/mnt/nvme/docker-volumes/printer";
+    fsType = "nfs4";
+    options = ["rw"];
+  };
+
+  fileSystems."/mnt/nfs/organizr" = {
+    device = "nas.home:/mnt/nvme/docker-volumes/organizr";
+    fsType = "nfs4";
+    options = ["rw"];
+  };
+
+  fileSystems."/mnt/nfs/tdarr" = {
+    device = "nas.home:/mnt/nvme/docker-volumes/tdarr";
+    fsType = "nfs4";
+    options = ["rw"];
+  };
+
+  fileSystems."/mnt/nfs/rpi" = {
+    device = "nas.home:/mnt/backup/rpi";
+    fsType = "nfs4";
+    options = ["rw"];
+  };
+
+  fileSystems."/mnt/nfs/vencloud" = {
+    device = "nas.home:/mnt/nvme/docker-volumes/vencloud";
     fsType = "nfs4";
     options = ["rw"];
   };

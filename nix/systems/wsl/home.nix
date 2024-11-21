@@ -18,6 +18,8 @@
           pip
         ])
     )
+    pipenv
+    nvidia-docker
   ];
 
   my.programs.fish.enableWslFunctions = true;

@@ -95,6 +95,11 @@ in {
           display-inlay-hints = true;
         };
 
+        editor.inline-diagnostics = {
+          cursor-line = "hint";
+          other-lines = "error";
+        };
+
         keys.normal = {
           G = "goto_last_line";
 
