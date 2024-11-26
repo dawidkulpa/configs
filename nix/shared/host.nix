@@ -17,6 +17,8 @@
     google-chrome
     chromedriver
     logrotate
+    polkit
+    fwupd
   ];
 
   age = {
