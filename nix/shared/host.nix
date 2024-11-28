@@ -85,4 +85,9 @@
   # the $PATH doesn't include all the entries it should by default.
   programs.fish.enable = true;
   programs.fish.useBabelfish = true;
+
+  networking = {
+    search = ["home"];
+    resolvconf.extraOptions = ["timeout:1" "attempts:1" "rotate"];
+  };
 }
