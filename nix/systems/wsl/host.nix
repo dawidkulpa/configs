@@ -216,5 +216,28 @@
     options = ["rw"];
   };
 
+  fileSystems."/mnt/nfs/unifi" = {
+    device = "nas.home:/mnt/nvme/docker-volumes/unifi";
+    fsType = "nfs4";
+    options = ["rw"];
+  };
+
+  fileSystems."/mnt/nfs/mongodb" = {
+    device = "nas.home:/mnt/nvme/docker-volumes/mongodb";
+    fsType = "nfs4";
+    options = ["rw"];
+  };
+
+  fileSystems."/mnt/nfs/victorialogs" = {
+    device = "nas.home:/mnt/nvme/docker-volumes/victorialogs";
+    fsType = "nfs4";
+    options = ["rw"];
+  };
+
+  fileSystems."/mnt/nfs/ansible" = {
+    device = "nas.home:/mnt/nvme/docker-volumes/ansible";
+    fsType = "nfs4";
+    options = ["rw"];
+  };
   system.stateVersion = "24.05";
 }

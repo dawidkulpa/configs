@@ -21,7 +21,9 @@ in {
         "log-driver" = "loki";
         "log-opts" = {
           "loki-url" = "http://loki.home:3100/loki/api/v1/push";
-          "loki-batch-size" = "400";
+          "loki-batch-size" = "1048576";
+          "mode" = "non-blocking";
+          "max-buffer-size" = "4MB";
         };
       };
     };
