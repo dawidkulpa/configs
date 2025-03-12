@@ -16,7 +16,6 @@
     };
     defaultUser = "buggy";
     startMenuLaunchers = true;
-    nativeSystemd = true;
     docker-desktop.enable = false;
     extraBin = with pkgs; [
       {src = "${coreutils}/bin/mkdir";}
@@ -58,6 +57,8 @@
 
   environment.systemPackages = with pkgs; [
     lima
+    #cudatoolkit
+    #cudaPackages.cudnn
   ];
 
   fileSystems."/mnt/nfs/traefik" = {
@@ -239,5 +240,18 @@
     fsType = "nfs4";
     options = ["rw"];
   };
-  system.stateVersion = "24.05";
+
+  fileSystems."/mnt/nfs/hyperion" = {
+    device = "nas.home:/mnt/nvme/docker-volumes/hyperion";
+    fsType = "nfs4";
+    options = ["rw"];
+  };
+
+  fileSystems."/mnt/nfs/hoppscotch" = {
+    device = "nas.home:/mnt/nvme/docker-volumes/hoppscotch";
+    fsType = "nfs4";
+    options = ["rw"];
+  };
+
+  system.stateVersion = "24.11";
 }

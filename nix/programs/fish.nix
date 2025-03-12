@@ -317,7 +317,7 @@ in {
 
             git init
 
-            nix flake init -t my#untracked-flake
+            nix flake init -t "/etc/nixos/flakes/configs/nix/flake.nix#untracked-flake"
             nix flake lock
             git add .
 

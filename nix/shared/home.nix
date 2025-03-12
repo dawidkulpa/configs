@@ -4,7 +4,7 @@
     ../modules/home
   ];
 
-  home.stateVersion = "24.05";
+  home.stateVersion = "24.11";
 
   home.packages = with pkgs; [
     # Editors that I sometimes want to play with
@@ -36,6 +36,7 @@
 
     # dev
     unstable.bun
+    nodejs_23
     nodePackages.typescript-language-server
     poetry
   ];
