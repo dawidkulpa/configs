@@ -82,5 +82,22 @@
     options = ["rw"];
   };
 
+  users.groups.systemd-journal-upload = {};
+  users.users.systemd-journal-upload = {
+    isSystemUser = true;
+    group = "systemd-journal-upload";
+  };
+
+  services.journald = {
+    upload = {
+      enable = true;
+      settings = {
+        Upload = {
+          URL = "http://victorialogs.home.dkulpa.eu:80/insert/journald";
+        };
+      };
+    };
+  };
+
   system.stateVersion = "24.11";
 }

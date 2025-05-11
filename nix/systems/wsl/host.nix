@@ -253,5 +253,23 @@
     options = ["rw"];
   };
 
+  fileSystems."/mnt/nfs/iot" = {
+    device = "nas.home:/mnt/nvme/docker-volumes/iot";
+    fsType = "nfs4";
+    options = ["rw"];
+  };
+
+  fileSystems."/mnt/nfs/authentik" = {
+    device = "nas.home:/mnt/nvme/docker-volumes/authentik";
+    fsType = "nfs4";
+    options = ["rw"];
+  };
+
+  fileSystems."/mnt/nfs/tools" = {
+    device = "nas.home:/mnt/nvme/docker-volumes/tools";
+    fsType = "nfs4";
+    options = ["rw"];
+  };
+
   system.stateVersion = "24.11";
 }
