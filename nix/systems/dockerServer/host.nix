@@ -99,5 +99,17 @@
     };
   };
 
+  systemd.services."systemd-journal-upload" = {
+    serviceConfig = {
+      Restart = "always";
+      RestartSec = "5s";
+    };
+
+    unitConfig = {
+      StartLimitBurst = 0;
+      StartLimitIntervalSec = 0;
+    };
+  };
+
   system.stateVersion = "24.11";
 }
