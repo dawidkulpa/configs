@@ -1,5 +1,6 @@
 {
   pkgs,
+  lib,
   config,
   ...
 }: {
@@ -101,13 +102,13 @@
 
   systemd.services."systemd-journal-upload" = {
     serviceConfig = {
-      Restart = "always";
-      RestartSec = "5s";
+      Restart = lib.mkForce "always";
+      RestartSec = lib.mkForce "5s";
     };
 
     unitConfig = {
-      StartLimitBurst = 0;
-      StartLimitIntervalSec = 0;
+      StartLimitBurst = lib.mkForce 0;
+      StartLimitIntervalSec = lib.mkForce 0;
     };
   };
 
