@@ -21,6 +21,10 @@ with lib; let
   cfg = config.my.programs.bitdefender;
   version = "7.5.0.200217";
 in {
+  options.my.programs.bitdefender = {
+    enable = mkEnableOption "enable bitdefender endpoint security tools";
+  };
+
   config = mkIf cfg.enable (let 
     bitdefender = stdenv.mkDerivation rec {
       pname = "bitdefender-endpoint-security-tools";
