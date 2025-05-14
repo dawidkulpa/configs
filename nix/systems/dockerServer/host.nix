@@ -62,6 +62,7 @@
   powerManagement.powertop.enable = true;
 
   my.programs.dockerServer.enable = true;
+  my.programs.bitdefender.enable = true;
 
   # users.mutableUsers = false;
 
