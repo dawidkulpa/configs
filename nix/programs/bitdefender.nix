@@ -21,8 +21,8 @@ with lib; let
   cfg = config.my.programs.bitdefender;
   version = "7.5.0.200217";
 in {
-  config = mkIf cfg.enable {
-    stdenv.mkDerivation {
+  config = mkIf cfg.enable (let 
+    bitdefender = stdenv.mkDerivation rec {
       pname = "bitdefender-endpoint-security-tools";
       inherit version;
 
@@ -94,6 +94,7 @@ in {
         platforms = [ "x86_64-linux" ];
         maintainers = with maintainers; [ "Buggy" ];
       };
-    }
-  }
+    }; in {
+    environment.systemPackages = [ bitdefender ];
+  });
 }
