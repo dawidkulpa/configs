@@ -9,6 +9,7 @@
     ./hardware-configuration.nix
     ../../shared/host.nix
     ../../local/local.nix
+    ../../programs/bitdefender.nix
   ];
 
   # Bootloader.

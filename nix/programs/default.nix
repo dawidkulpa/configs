@@ -6,6 +6,5 @@
     ./tealdeer
     ./tmux.nix
     ./starship.nix
-    ./bitdefender.nix
   ];
 }
