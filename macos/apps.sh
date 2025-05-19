@@ -66,6 +66,6 @@ brew install --cask marta
 brew cleanup
 
 # configures a global .gitignore
-ln -s "$script_dir/.gitignore" "~/.gitignore"
+ln -s "$script_dir/.gitignore" ~/.gitignore
 echo "Symbolic link created from $script_dir/.gitignore to ~/.gitignore."
 git config --global core.excludesFile ~/.gitignore
