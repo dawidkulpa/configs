@@ -37,7 +37,7 @@ brew install --cask wezterm
 brew install fish
 
 #Check if run from fish shell
-if ! [ "$(get_parent_process_name)" = "fish" ]; then
+if [[ ! "$(get_parent_process_name)" = *"fish"* ]]; then
   echo "Close the terminal, open it again and run fish. Run this script again afterwards."
   exit 0 
 fi
@@ -60,6 +60,12 @@ brew install tealdeer
 brew install bat
 brew install thefuck
 brew install fnm
+brew install --cask marta
 
 # Clean Up Brew
 brew cleanup
+
+# configures a global .gitignore
+ln -s "$script_dir/.gitignore" "~/.gitignore"
+echo "Symbolic link created from $script_dir/.gitignore to ~/.gitignore."
+git config --global core.excludesFile ~/.gitignore
