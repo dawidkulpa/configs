@@ -20,8 +20,8 @@ in {
       daemon.settings = {
         "log-driver" = "journald";
         "log-opts" = {
-          "tag": "{{.Name}}";
-          "labels": "com.docker.stack.namespace,com.docker.swarm.service.name";
+          "tag" = "{{.Name}}";
+          "labels" = "com.docker.stack.namespace,com.docker.swarm.service.name";
         };
       };
     };
