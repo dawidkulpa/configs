@@ -18,12 +18,10 @@ in {
       liveRestore = false;
       package = pkgs.docker_27;
       daemon.settings = {
-        "log-driver" = "loki";
+        "log-driver" = "journald";
         "log-opts" = {
-          "loki-url" = "http://loki.home:3100/loki/api/v1/push";
-          "loki-batch-size" = "1048576";
-          "mode" = "non-blocking";
-          "max-buffer-size" = "4MB";
+          "tag": "{{.Name}}";
+          "labels": "com.docker.stack.namespace,com.docker.swarm.service.name";
         };
       };
     };
