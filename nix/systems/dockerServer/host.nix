@@ -96,7 +96,7 @@
       enable = true;
       settings = {
         Upload = {
-          URL = "http://victorialogs.home.dkulpa.eu:80/insert/journald";
+          URL = "http://debian-containers.home.dkulpa.eu:9428/insert/journald";
         };
       };
     };
