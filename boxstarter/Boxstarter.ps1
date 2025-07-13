@@ -309,6 +309,9 @@ choco install visualstudiocode -y
 # Install Termius
 choco install termius -y
 
+# Install XPipe - alternative to termius
+winget install xpipe-io.xpipe
+
 # Install PowerToys
 choco install powertoys -y
 
