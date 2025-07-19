@@ -17,6 +17,8 @@
     interval = "weekly";
   };
 
+  services.qemuGuest.enable = true;
+
   systemd.services.freeMemory = {
     description = "Free memory after nix-optimise.service is run";
     after = ["nix-optimise.service"];
