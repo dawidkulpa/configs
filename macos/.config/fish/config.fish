@@ -16,3 +16,8 @@ starship init fish | source
 thefuck --alias | source
 zoxide init fish | source
 fnm env --use-on-cd --resolve-engines | source
+
+set -l python_user_bin (python3 -m site --user-base)/bin
+if test -d "$python_user_bin"
+    fish_add_path "$python_user_bin"
+end
