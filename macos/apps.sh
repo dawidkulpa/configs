@@ -61,6 +61,18 @@ brew install bat
 brew install thefuck
 brew install fnm
 brew install --cask marta
+brew install go
+
+# Helix LSPs
+npm i -g typescript-language-server typescript
+npm i -g vscode-langservers-extracted
+pip3 install "python-lsp-server[all]" --break-system-packages --user
+brew install markdown-oxide
+brew install JetBrains/utils/kotlin-lsp
+go install golang.org/x/tools/gopls@latest
+npm i -g @microsoft/compose-language-service
+npm i -g bash-language-server
+brew install yaml-language-server
 
 # Clean Up Brew
 brew cleanup
