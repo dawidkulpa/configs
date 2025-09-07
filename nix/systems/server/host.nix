@@ -55,5 +55,5 @@
   age.secrets.k3sToken.file = "/root/secrets/k3s-token.age";
   # users.mutableUsers = false;
 
-  system.stateVersion = "24.11";
+  system.stateVersion = "25.05";
 }

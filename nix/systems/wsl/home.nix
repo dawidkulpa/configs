@@ -6,7 +6,7 @@
   home.username = "buggy";
   home.homeDirectory = "/home/buggy";
 
-  home.stateVersion = "24.11";
+  home.stateVersion = "25.05";
 
   home.packages = with pkgs; [
     dotnet-sdk_8
