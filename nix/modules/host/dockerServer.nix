@@ -16,7 +16,7 @@ in {
       enable = true;
       enableOnBoot = true;
       liveRestore = false;
-      package = pkgs.docker_27;
+      package = pkgs.docker_28;
       daemon.settings = {
         "log-driver" = "journald";
         "log-opts" = {
