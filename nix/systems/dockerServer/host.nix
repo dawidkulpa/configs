@@ -90,6 +90,7 @@
   };
 
   services.journald = {
+    extraConfig = "SystemMaxUse=100M";
     upload = {
       enable = true;
       settings = {
