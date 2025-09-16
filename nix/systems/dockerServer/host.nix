@@ -43,7 +43,17 @@
     description = "Buggy";
     isNormalUser = true;
     extraGroups = ["wheel" "networkmanager" "docker"];
-    shell = pkgs.fish;
+    shell = pkgs.bashInteractive;
+  };
+
+  programs.bash = {
+    enableCompletion = true;
+    interactiveShellInit = ''
+      # Jump to fish only for interactive TTY sessions (XPipe probes won't hit this)
+      if [[ $- == *i* ]] && [ -t 1 ] && command -v fish >/dev/null; then
+        exec fish -l
+      fi
+    '';
   };
 
   users.groups.docker-nfs = {
