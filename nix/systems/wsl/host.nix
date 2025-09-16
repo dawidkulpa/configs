@@ -271,5 +271,10 @@
     options = ["rw"];
   };
 
+  fileSystems."/mnt/nfs/xpipe" = {
+    device = "nas.home:/mnt/nvme/docker-volumes/xpipe-webtop";
+    fsType = "nfs4";
+    options = ["rw"];
+  };
   system.stateVersion = "25.05";
 }
