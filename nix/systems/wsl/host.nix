@@ -276,5 +276,18 @@
     fsType = "nfs4";
     options = ["rw"];
   };
+
+  fileSystems."/mnt/nfs/open-webui" = {
+    device = "nas.home:/mnt/nvme/docker-volumes/open-webui";
+    fsType = "nfs4";
+    options = ["rw"];
+  };
+
+  fileSystems."/mnt/nfs/ai-chat" = {
+    device = "nas.home:/mnt/nvme/docker-volumes/ai-chat";
+    fsType = "nfs4";
+    options = ["rw"];
+  };
+
   system.stateVersion = "25.05";
 }
