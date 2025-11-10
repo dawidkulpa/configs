@@ -2,12 +2,10 @@
   pkgs,
   config,
   lib,
-  inputs,
   ...
 }:
 with lib; let
   cfg = config.my.programs.helix;
-  language = name: text: text;
   myTheme = "catppuccin_mocha";
 in {
   options = {
@@ -15,39 +13,9 @@ in {
   };
 
   config = mkIf cfg.enable {
-    # Might have to refactor this into a module or upstream it if I add more queries!
-    xdg.configFile."helix/runtime/queries/nix/injections.scm".text = let
-      # Helix will override whatever the builtin injection query is with your own
-      # if you don't copy it and append your query to it.
-      originalNixInjections = builtins.readFile (inputs.helix + "/runtime/queries/nix/injections.scm");
-    in
-      language "scheme" ''
-        ; This is a simple query that allows you to define a function called "language" and
-        ; highlight as whatever its first argument is. `language = name: str: str;`
-        ((apply_expression
-           function: (apply_expression function: (_) @_func
-             argument: (string_expression (string_fragment) @injection.language))
-           argument: (indented_string_expression (string_fragment) @injection.content))
-         (#eq? @_func "language")
-         (#set! injection.language))
-
-        ${originalNixInjections}
-      '';
-
     programs.helix = {
       enable = true;
       defaultEditor = true;
-      # nu syntax has been updated a fair bit since the last update to the default language file
-      package = inputs.helix.packages.${pkgs.stdenv.system}.default.override {
-        grammarOverlays = [
-          (final: prev: {
-            nu = prev.nu.overrideAttrs {
-              rev = "2d0dd587dbfc3363d2af4e4141833e718647a67e";
-            };
-          })
-        ];
-      };
-
       settings = {
         theme = myTheme;
 
@@ -186,11 +154,6 @@ in {
         };
       };
 
-      themes.${myTheme} = {
-        inherits = "gruvbox";
-        comment = {fg = "gray1";};
-      };
-
       languages.language-server = {
         deno = {
           command = "deno";
@@ -217,17 +180,81 @@ in {
         rust-analyzer.command = "rust-analyzer";
 
         ltex-ls.command = "ltex-ls";
+
+        htmlls = {
+          command = "vscode-html-language-server";
+          args = ["--stdio"];
+        };
+
+        jsonls = {
+          command = "vscode-json-language-server";
+          args = ["--stdio"];
+          # json.validate/format enabled by default
+        };
+
+        yamlls = {
+          command = "yaml-language-server";
+          args = ["--stdio"];
+          config = {
+            yaml = {
+              completion = true;
+              validate = true;
+              hover = true;
+              format.enable = true;
+              schemaStore.enable = true;
+              # Helpful explicit schemas
+              schemas = {
+                "https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json" = ["docker-compose*.yml" "docker-compose*.yaml" "compose*.yml" "compose*.yaml"];
+                "https://json.schemastore.org/github-workflow.json" = ".github/workflows/*.{yml,yaml}";
+              };
+            };
+          };
+        };
+
+        dockerls = {
+          command = "docker-langserver";
+          args = ["--stdio"];
+        };
+
+        docker-compose-langserver = {
+          command = "docker-compose-langserver";
+          args = ["--stdio"];
+        };
+
+        "fish-lsp".command = "fish-lsp";
+
+        lemminx.command = "lemminx";
+
+        # "systemd-lsp".command = "systemd-lsp"; # unavailable in nixos < 25.10
+
+        marksman = {
+          command = "marksman";
+          args = ["server"];
+        };
+
+        pyright = {
+          command = "pyright-langserver";
+          args = ["--stdio"];
+        };
+
+        ruff = {
+          command = "ruff";
+          args = ["server"];
+        };
+
+        superhtml.command = "superhtml";
       };
 
       languages.language = [
         {
           name = "nix";
-          language-servers = ["nil"];
+          language-servers = ["nixd"];
           auto-format = true;
           formatter = {
             command = "${pkgs.alejandra}/bin/alejandra";
             args = ["-"];
           };
+          file-types = ["nix" "flake.nix" "default.nix" "shell.nix"];
         }
         {
           name = "fish";
@@ -246,6 +273,61 @@ in {
         {
           name = "git-commit";
           language-servers = ["ltex-ls"];
+        }
+        {
+          name = "dockerfile";
+          language-servers = ["dockerls"];
+          auto-format = true;
+        }
+
+        {
+          name = "docker-compose";
+          language-servers = ["docker-compose-langserver" "yamlls"];
+        }
+
+        {
+          name = "yaml";
+          language-servers = ["yamlls" "ansible-language-server"];
+        }
+
+        {
+          name = "html";
+          language-servers = [
+            "htmlls"
+            "superhtml"
+          ];
+        }
+
+        {
+          name = "json";
+          language-servers = ["jsonls"];
+          file-types = ["json" "flake.lock"];
+        }
+
+        {
+          name = "xml";
+          language-servers = ["lemminx"];
+        }
+
+        {
+          name = "systemd";
+          language-servers = ["systemd-lsp"];
+        }
+
+        {
+          name = "fish";
+          language-servers = ["fish-lsp"];
+        }
+
+        {
+          name = "markdown";
+          language-servers = ["marksman" "ltex-ls"];
+        }
+
+        {
+          name = "python";
+          language-servers = ["pyright" "ruff"];
+          auto-format = true;
         }
       ];
     };

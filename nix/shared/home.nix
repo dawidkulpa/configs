@@ -22,6 +22,7 @@
     jq
     glow
     unzip
+    xclip
 
     # File transfer stuff
     curlHTTP3
@@ -39,6 +40,22 @@
     nodejs_24
     nodePackages.typescript-language-server
     poetry
+
+    # LSPs
+    vscode-langservers-extracted
+    yaml-language-server
+    ansible-language-server
+    dockerfile-language-server-nodejs
+    docker-compose-language-service
+    fish-lsp
+    lemminx
+    # systemd-lsp # unavailable in nixos < 25.10
+    marksman
+    ltex-ls
+    pyright
+    ruff
+    superhtml
+    nixd
   ];
 
   # Enables the programs and uses my configuration for them.
@@ -65,12 +82,12 @@
 
     zellij.enable = true;
 
-    nushell = {
-      enable = true;
+    # nushell = {
+    #   enable = true;
 
-      # nushellFull adds support for dataframes
-      package = pkgs.nushellFull;
-    };
+    #   # nushellFull adds support for dataframes
+    #   package = pkgs.nushellFull;
+    # };
 
     gh = {
       enable = true;

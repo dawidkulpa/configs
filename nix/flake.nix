@@ -17,11 +17,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    helix = {
-      url = "github:helix-editor/helix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     fish-tide = {
       url = "github:IlanCosman/tide";
       flake = false;
@@ -74,10 +69,6 @@
     nixos-wsl,
     home-manager,
     flake-utils,
-    nix-homebrew,
-    homebrew-core,
-    homebrew-cask,
-    homebrew-bundle,
     agenix,
     ...
   }: let
@@ -102,16 +93,30 @@
         };
       };
     };
+
+    overlay-unstable = final: prev: {
+      unstable = import nixpkgsUnstable {
+        system = "x86_64-linux";
+        config.allowUnfree = true;
+      };
+    };
   in
-    {
-      nixosConfigurations = let
-        overlay-unstable = final: prev: {
-          unstable = import nixpkgsUnstable {
-            system = "x86_64-linux";
-            config.allowUnfree = true;
-          };
-        };
+    flake-utils.lib.eachDefaultSystem (
+      system: let
+        pkgs = nixpkgs.legacyPackages.${system};
       in {
+        formatter = pkgs.alejandra;
+
+        devShells.default = pkgs.mkShell {
+          packages = with pkgs; [
+            alejandra
+            libstdcxx
+          ];
+        };
+      }
+    )
+    // {
+      nixosConfigurations = {
         nixosPC = nixpkgs.lib.nixosSystem {
           modules = [
             ({...}: {nixpkgs.overlays = [overlay-unstable];})
@@ -173,17 +178,5 @@
           description = "Flake to be used with my `mkflake` shell function";
         };
       };
-    }
-    // flake-utils.lib.eachDefaultSystem (system: let
-      pkgs = nixpkgs.legacyPackages.${system};
-    in {
-      formatter = pkgs.alejandra;
-      devShell = pkgs.mkShell {
-        packages = with pkgs; [
-          nil
-          alejandra
-          libstdcxx
-        ];
-      };
-    });
+    };
 }
