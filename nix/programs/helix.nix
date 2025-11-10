@@ -42,7 +42,7 @@ in {
         };
 
         editor.cursor-shape = {
-          insert = "bar";
+          insert = "block";
           select = "underline";
           normal = "block";
         };
