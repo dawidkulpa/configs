@@ -44,8 +44,8 @@
   networking = {
     hostName = "nixosWSL";
     nameservers = [
-      "192.168.10.2"
       "192.168.10.3"
+      "192.168.10.4"
     ];
   };
 
@@ -285,6 +285,18 @@
 
   fileSystems."/mnt/nfs/ai-chat" = {
     device = "nas.home:/mnt/nvme/docker-volumes/ai-chat";
+    fsType = "nfs4";
+    options = ["rw"];
+  };
+
+  fileSystems."/mnt/nfs/postgres" = {
+    device = "nas.home:/mnt/nvme/docker-volumes/postgres";
+    fsType = "nfs4";
+    options = ["rw"];
+  };
+
+  fileSystems."/mnt/nfs/copyparty" = {
+    device = "nas.home:/mnt/nvme/docker-volumes/copyparty";
     fsType = "nfs4";
     options = ["rw"];
   };
