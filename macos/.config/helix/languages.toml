@@ -57,6 +57,8 @@ name = "xml"
 [[language]]
 language-servers = ["systemd-lsp"]
 name = "systemd"
+scope = "source.ini"
+file-types = ["service", "timer", "socket", "target", "mount", "network"]
 
 [[language]]
 language-servers = ["fish-lsp"]
@@ -83,6 +85,8 @@ unstable = true
 [language-server.docker-compose-langserver]
 args = ["--stdio"]
 command = "docker-compose-langserver"
+scope = "source.yaml.docker-compose"
+file-types = ["docker-compose.yml", "docker-compose.yaml"]
 
 [language-server.dockerls]
 args = ["--stdio"]
