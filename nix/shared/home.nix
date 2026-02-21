@@ -4,7 +4,7 @@
     ../modules/home
   ];
 
-  home.stateVersion = "25.05";
+  home.stateVersion = "25.11";
 
   home.packages = with pkgs; [
     # Editors that I sometimes want to play with
@@ -44,7 +44,6 @@
     # LSPs
     vscode-langservers-extracted
     yaml-language-server
-    ansible-language-server
     dockerfile-language-server-nodejs
     docker-compose-language-service
     fish-lsp
@@ -67,6 +66,7 @@
     helix.enable = true;
     tealdeer.enable = true;
     starship.enable = true;
+    opencode.enable = true;
   };
 
   # Enables programs that I don't have a more complicated config for.

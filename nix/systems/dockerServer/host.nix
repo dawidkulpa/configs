@@ -126,5 +126,5 @@
   # for Elastic:
   boot.kernel.sysctl."vm.max_map_count" = 262144;
 
-  system.stateVersion = "25.05";
+  system.stateVersion = "25.11";
 }

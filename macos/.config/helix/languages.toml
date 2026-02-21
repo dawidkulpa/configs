@@ -1,0 +1,159 @@
+[[language]]
+auto-format = true
+file-types = ["nix", "flake.nix", "default.nix", "shell.nix"]
+language-servers = ["nixd"]
+name = "nix"
+
+[language.formatter]
+args = ["-"]
+command = "/nix/store/2v43qk3l6dilayqiylksjcabik5r3hn3-alejandra-4.0.0/bin/alejandra"
+
+[[language]]
+auto-format = true
+name = "fish"
+
+[language.formatter]
+command = "/nix/store/djgc45v1n9lq05kr5vvg4z03xjj2yqwd-fish-4.2.1/bin/fish_indent"
+
+[[language]]
+auto-format = false
+language-servers = ["ltex-ls"]
+name = "markdown"
+
+[language.formatter]
+args = ["--ext", "md", "-"]
+command = "deno"
+
+[[language]]
+language-servers = ["ltex-ls"]
+name = "git-commit"
+
+[[language]]
+auto-format = true
+language-servers = ["dockerls"]
+name = "dockerfile"
+
+[[language]]
+language-servers = ["docker-compose-langserver", "yamlls"]
+name = "docker-compose"
+
+[[language]]
+language-servers = ["yamlls"]
+name = "yaml"
+
+[[language]]
+language-servers = ["htmlls", "superhtml"]
+name = "html"
+
+[[language]]
+file-types = ["json", "flake.lock"]
+language-servers = ["jsonls"]
+name = "json"
+
+[[language]]
+language-servers = ["lemminx"]
+name = "xml"
+
+[[language]]
+language-servers = ["systemd-lsp"]
+name = "systemd"
+
+[[language]]
+language-servers = ["fish-lsp"]
+name = "fish"
+
+[[language]]
+language-servers = ["marksman", "ltex-ls"]
+name = "markdown"
+
+[[language]]
+auto-format = true
+language-servers = ["pyright", "ruff"]
+name = "python"
+
+[language-server.deno]
+args = ["lsp"]
+command = "deno"
+
+[language-server.deno.config]
+enable = true
+lint = true
+unstable = true
+
+[language-server.docker-compose-langserver]
+args = ["--stdio"]
+command = "docker-compose-langserver"
+
+[language-server.dockerls]
+args = ["--stdio"]
+command = "docker-langserver"
+
+[language-server.fish-lsp]
+command = "fish-lsp"
+
+[language-server.htmlls]
+args = ["--stdio"]
+command = "vscode-html-language-server"
+
+[language-server.jsonls]
+args = ["--stdio"]
+command = "vscode-json-language-server"
+
+[language-server.lemminx]
+command = "lemminx"
+
+[language-server.ltex-ls]
+command = "ltex-ls"
+
+[language-server.marksman]
+args = ["server"]
+command = "marksman"
+
+[language-server.nil]
+command = "nil"
+
+[language-server.nixd]
+command = "nixd"
+
+[language-server.pyright]
+args = ["--stdio"]
+command = "pyright-langserver"
+
+[language-server.ruff]
+args = ["server"]
+command = "ruff"
+
+[language-server.rust-analyzer]
+command = "rust-analyzer"
+
+[language-server.superhtml]
+command = "superhtml"
+
+[language-server.svelteserver]
+command = "svelteserver"
+
+[language-server.tailwindcss]
+args = ["--stdio"]
+command = "tailwindcss-language-server"
+language-id = "tailwindcss"
+
+[language-server.tailwindcss.config]
+
+[language-server.yamlls]
+args = ["--stdio"]
+command = "yaml-language-server"
+
+[language-server.yamlls.config.yaml]
+completion = true
+hover = true
+validate = true
+
+[language-server.yamlls.config.yaml.format]
+enable = true
+
+[language-server.yamlls.config.yaml.schemaStore]
+enable = true
+
+[language-server.yamlls.config.yaml.schemas]
+"https://json.schemastore.org/github-workflow.json" = ".github/workflows/*.{yml,yaml}"
+"https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json" = ["docker-compose*.yml", "docker-compose*.yaml", "compose*.yml", "compose*.yaml"]

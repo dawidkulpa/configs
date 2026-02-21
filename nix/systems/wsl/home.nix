@@ -6,12 +6,12 @@
   home.username = "buggy";
   home.homeDirectory = "/home/buggy";
 
-  home.stateVersion = "25.05";
+  home.stateVersion = "25.11";
 
   home.packages = with pkgs; [
     dotnet-sdk_8
     (
-      python311.withPackages (p:
+      python313.withPackages (p:
         with p; [
           virtualenv
           poetry-core

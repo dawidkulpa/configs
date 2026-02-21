@@ -6,5 +6,6 @@
     ./tealdeer
     ./tmux.nix
     ./starship.nix
+    ./opencode.nix
   ];
 }

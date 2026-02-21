@@ -1,0 +1,82 @@
+theme = "catppuccin_mocha"
+
+[editor]
+bufferline = "multiple"
+color-modes = true
+completion-trigger-len = 1
+cursorline = true
+idle-timeout = 0
+line-number = "relative"
+true-color = true
+
+[editor.cursor-shape]
+insert = "block"
+normal = "block"
+select = "underline"
+
+[editor.indent-guides]
+render = true
+skip-levels = 1
+
+[editor.inline-diagnostics]
+cursor-line = "hint"
+other-lines = "error"
+
+[editor.lsp]
+display-inlay-hints = true
+display-messages = true
+
+[editor.statusline]
+right = ["diagnostics", "selections", "position", "position-percentage", "file-encoding"]
+
+[editor.whitespace.characters]
+newline = "↵"
+
+[editor.whitespace.render]
+newline = "all"
+
+[keys.insert]
+C-h = ":toggle-option lsp.display-inlay-hints"
+C-space = "completion"
+
+[keys.normal]
+"#" = ["toggle_comments"]
+"*" = ["trim_selections", "search_selection"]
+C-d = ["half_page_down", "goto_window_center"]
+C-h = ":toggle-option lsp.display-inlay-hints"
+C-u = ["half_page_up", "goto_window_center"]
+D = ["goto_first_nonwhitespace", "extend_to_line_end", "change_selection"]
+G = "goto_last_line"
+a = ["append_mode", "collapse_selection"]
+i = ["insert_mode", "collapse_selection"]
+
+[keys.normal.V]
+S = ":pipe sort -u"
+s = ":pipe sort"
+
+[keys.normal.Z]
+C-d = ["half_page_down", "goto_window_center"]
+C-u = ["half_page_up", "goto_window_center"]
+D = ["scroll_down", "scroll_down", "scroll_down", "scroll_down", "scroll_down"]
+E = ["scroll_down", "scroll_down", "scroll_down", "scroll_down", "scroll_down"]
+J = ["scroll_down", "scroll_down", "scroll_down", "scroll_down", "scroll_down"]
+K = ["scroll_up", "scroll_up", "scroll_up", "scroll_up", "scroll_up"]
+U = ["scroll_up", "scroll_up", "scroll_up", "scroll_up", "scroll_up"]
+Y = ["scroll_up", "scroll_up", "scroll_up", "scroll_up", "scroll_up"]
+d = "scroll_down"
+e = "scroll_down"
+u = "scroll_up"
+y = "scroll_up"
+
+[keys.normal.space.w]
+S = ["hsplit_new", "file_picker"]
+V = ["vsplit_new", "file_picker"]
+
+[keys.select]
+";" = ["collapse_selection", "normal_mode"]
+C-d = ["half_page_down", "goto_window_center"]
+C-h = ":toggle-option lsp.display-inlay-hints"
+C-u = ["half_page_up", "goto_window_center"]
+a = ["append_mode", "collapse_selection"]
+i = ["insert_mode", "collapse_selection"]
+

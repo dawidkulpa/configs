@@ -287,7 +287,7 @@ in {
 
         {
           name = "yaml";
-          language-servers = ["yamlls" "ansible-language-server"];
+          language-servers = ["yamlls"];
         }
 
         {

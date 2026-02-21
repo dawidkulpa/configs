@@ -57,6 +57,7 @@
 
   environment.systemPackages = with pkgs; [
     lima
+    jellyfin-ffmpeg
     #cudatoolkit
     #cudaPackages.cudnn
   ];
@@ -301,5 +302,23 @@
     options = ["rw"];
   };
 
-  system.stateVersion = "25.05";
+  fileSystems."/mnt/nfs/media" = {
+    device = "nas.home:/mnt/backup/media";
+    fsType = "nfs4";
+    options = ["rw"];
+  };
+
+  fileSystems."/mnt/nfs/mariadb" = {
+    device = "nas.home:/mnt/nvme/docker-volumes/mariadb";
+    fsType = "nfs4";
+    options = ["rw"];
+  };
+
+  fileSystems."/mnt/nfs/jelly" = {
+    device = "nas.home:/mnt/nvme/docker-volumes/jelly";
+    fsType = "nfs4";
+    options = ["rw"];
+  };
+
+  system.stateVersion = "25.11";
 }
