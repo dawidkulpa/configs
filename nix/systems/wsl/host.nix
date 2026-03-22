@@ -63,259 +63,259 @@
   ];
 
   fileSystems."/mnt/nfs/traefik" = {
-    device = "nas.home:/mnt/nvme/docker-volumes/traefik";
+    device = "nas.servers:/mnt/nvme/docker-volumes/traefik";
     fsType = "nfs4";
     options = ["rw"];
   };
 
   fileSystems."/mnt/nfs/traefik-edge" = {
-    device = "nas.home:/mnt/nvme/docker-volumes/traefik-edge";
+    device = "nas.servers:/mnt/nvme/docker-volumes/traefik-edge";
     fsType = "nfs4";
     options = ["rw"];
   };
 
   fileSystems."/mnt/nfs/pve-shared" = {
-    device = "nas.home:/mnt/nvme/pve-shared";
+    device = "nas.servers:/mnt/nvme/pve-shared";
     fsType = "nfs4";
     options = ["rw"];
   };
 
   fileSystems."/mnt/nfs/dev" = {
-    device = "nas.home:/mnt/nvme/dev";
+    device = "nas.servers:/mnt/nvme/dev";
     fsType = "nfs4";
     options = ["rw"];
   };
 
   fileSystems."/mnt/nfs/file-server" = {
-    device = "nas.home:/mnt/nvme/docker-volumes/file-server";
+    device = "nas.servers:/mnt/nvme/docker-volumes/file-server";
     fsType = "nfs4";
     options = ["rw"];
   };
 
   fileSystems."/mnt/nfs/n8n" = {
-    device = "nas.home:/mnt/nvme/docker-volumes/n8n";
+    device = "nas.servers:/mnt/nvme/docker-volumes/n8n";
     fsType = "nfs4";
     options = ["rw"];
   };
 
   fileSystems."/mnt/nfs/frigate" = {
-    device = "nas.home:/mnt/nvme/docker-volumes/frigate";
+    device = "nas.servers:/mnt/nvme/docker-volumes/frigate";
     fsType = "nfs4";
     options = ["rw"];
   };
 
   fileSystems."/mnt/nfs/duplicati" = {
-    device = "nas.home:/mnt/nvme/docker-volumes/duplicati";
+    device = "nas.servers:/mnt/nvme/docker-volumes/duplicati";
     fsType = "nfs4";
     options = ["rw"];
   };
 
   fileSystems."/mnt/nfs/replicas" = {
-    device = "nas.home:/mnt/nvme/replicas";
+    device = "nas.servers:/mnt/nvme/replicas";
     fsType = "nfs4";
     options = ["rw"];
   };
 
   fileSystems."/mnt/nfs/speedtest" = {
-    device = "nas.home:/mnt/nvme/docker-volumes/speedtest";
+    device = "nas.servers:/mnt/nvme/docker-volumes/speedtest";
     fsType = "nfs4";
     options = ["rw"];
   };
 
   fileSystems."/mnt/nfs/speedtest-influxdb" = {
-    device = "nas.home:/mnt/nvme/docker-volumes/speedtest-influxdb";
+    device = "nas.servers:/mnt/nvme/docker-volumes/speedtest-influxdb";
     fsType = "nfs4";
     options = ["rw"];
   };
 
   fileSystems."/mnt/nfs/pterodactyl-panel" = {
-    device = "nas.home:/mnt/nvme/docker-volumes/pterodactyl-panel";
+    device = "nas.servers:/mnt/nvme/docker-volumes/pterodactyl-panel";
     fsType = "nfs4";
     options = ["rw"];
   };
 
   fileSystems."/mnt/nfs/pterodactyl-wings" = {
-    device = "nas.home:/mnt/nvme/docker-volumes/pterodactyl-wings";
+    device = "nas.servers:/mnt/nvme/docker-volumes/pterodactyl-wings";
     fsType = "nfs4";
     options = ["rw"];
   };
 
   fileSystems."/mnt/nfs/crowdsec" = {
-    device = "nas.home:/mnt/nvme/docker-volumes/crowdsec";
+    device = "nas.servers:/mnt/nvme/docker-volumes/crowdsec";
     fsType = "nfs4";
     options = ["rw"];
   };
 
   fileSystems."/mnt/nfs/grafana" = {
-    device = "nas.home:/mnt/nvme/docker-volumes/grafana";
+    device = "nas.servers:/mnt/nvme/docker-volumes/grafana";
     fsType = "nfs4";
     options = ["rw"];
   };
 
   fileSystems."/mnt/nfs/pmm" = {
-    device = "nas.home:/mnt/nvme/docker-volumes/pmm";
+    device = "nas.servers:/mnt/nvme/docker-volumes/pmm";
     fsType = "nfs4";
     options = ["rw"];
   };
 
   fileSystems."/mnt/nfs/rsync-server" = {
-    device = "nas.home:/mnt/backup/rsync-server";
+    device = "nas.servers:/mnt/backup/rsync-server";
     fsType = "nfs4";
     options = ["rw"];
   };
 
   fileSystems."/mnt/nfs/prometheus" = {
-    device = "nas.home:/mnt/nvme/docker-volumes/prometheus";
+    device = "nas.servers:/mnt/nvme/docker-volumes/prometheus";
     fsType = "nfs4";
     options = ["rw"];
   };
 
   fileSystems."/mnt/nfs/victoriametrics" = {
-    device = "nas.home:/mnt/nvme/docker-volumes/victoriametrics";
+    device = "nas.servers:/mnt/nvme/docker-volumes/victoriametrics";
     fsType = "nfs4";
     options = ["rw"];
   };
 
   fileSystems."/mnt/nfs/portainer" = {
-    device = "nas.home:/mnt/nvme/docker-volumes/portainer";
+    device = "nas.servers:/mnt/nvme/docker-volumes/portainer";
     fsType = "nfs4";
     options = ["rw"];
   };
 
   fileSystems."/mnt/nfs/paperless" = {
-    device = "nas.home:/mnt/nvme/docker-volumes/paperless";
+    device = "nas.servers:/mnt/nvme/docker-volumes/paperless";
     fsType = "nfs4";
     options = ["rw"];
   };
 
   fileSystems."/mnt/nfs/printer" = {
-    device = "nas.home:/mnt/nvme/docker-volumes/printer";
+    device = "nas.servers:/mnt/nvme/docker-volumes/printer";
     fsType = "nfs4";
     options = ["rw"];
   };
 
   fileSystems."/mnt/nfs/organizr" = {
-    device = "nas.home:/mnt/nvme/docker-volumes/organizr";
+    device = "nas.servers:/mnt/nvme/docker-volumes/organizr";
     fsType = "nfs4";
     options = ["rw"];
   };
 
   fileSystems."/mnt/nfs/tdarr" = {
-    device = "nas.home:/mnt/nvme/docker-volumes/tdarr";
+    device = "nas.servers:/mnt/nvme/docker-volumes/tdarr";
     fsType = "nfs4";
     options = ["rw"];
   };
 
   fileSystems."/mnt/nfs/rpi" = {
-    device = "nas.home:/mnt/backup/rpi";
+    device = "nas.servers:/mnt/backup/rpi";
     fsType = "nfs4";
     options = ["rw"];
   };
 
   fileSystems."/mnt/nfs/vencloud" = {
-    device = "nas.home:/mnt/nvme/docker-volumes/vencloud";
+    device = "nas.servers:/mnt/nvme/docker-volumes/vencloud";
     fsType = "nfs4";
     options = ["rw"];
   };
 
   fileSystems."/mnt/nfs/unifi" = {
-    device = "nas.home:/mnt/nvme/docker-volumes/unifi";
+    device = "nas.servers:/mnt/nvme/docker-volumes/unifi";
     fsType = "nfs4";
     options = ["rw"];
   };
 
   fileSystems."/mnt/nfs/mongodb" = {
-    device = "nas.home:/mnt/nvme/docker-volumes/mongodb";
+    device = "nas.servers:/mnt/nvme/docker-volumes/mongodb";
     fsType = "nfs4";
     options = ["rw"];
   };
 
   fileSystems."/mnt/nfs/victorialogs" = {
-    device = "nas.home:/mnt/nvme/docker-volumes/victorialogs";
+    device = "nas.servers:/mnt/nvme/docker-volumes/victorialogs";
     fsType = "nfs4";
     options = ["rw"];
   };
 
   fileSystems."/mnt/nfs/ansible" = {
-    device = "nas.home:/mnt/nvme/docker-volumes/ansible";
+    device = "nas.servers:/mnt/nvme/docker-volumes/ansible";
     fsType = "nfs4";
     options = ["rw"];
   };
 
   fileSystems."/mnt/nfs/hyperion" = {
-    device = "nas.home:/mnt/nvme/docker-volumes/hyperion";
+    device = "nas.servers:/mnt/nvme/docker-volumes/hyperion";
     fsType = "nfs4";
     options = ["rw"];
   };
 
   fileSystems."/mnt/nfs/hoppscotch" = {
-    device = "nas.home:/mnt/nvme/docker-volumes/hoppscotch";
+    device = "nas.servers:/mnt/nvme/docker-volumes/hoppscotch";
     fsType = "nfs4";
     options = ["rw"];
   };
 
   fileSystems."/mnt/nfs/iot" = {
-    device = "nas.home:/mnt/nvme/docker-volumes/iot";
+    device = "nas.servers:/mnt/nvme/docker-volumes/iot";
     fsType = "nfs4";
     options = ["rw"];
   };
 
   fileSystems."/mnt/nfs/authentik" = {
-    device = "nas.home:/mnt/nvme/docker-volumes/authentik";
+    device = "nas.servers:/mnt/nvme/docker-volumes/authentik";
     fsType = "nfs4";
     options = ["rw"];
   };
 
   fileSystems."/mnt/nfs/tools" = {
-    device = "nas.home:/mnt/nvme/docker-volumes/tools";
+    device = "nas.servers:/mnt/nvme/docker-volumes/tools";
     fsType = "nfs4";
     options = ["rw"];
   };
 
   fileSystems."/mnt/nfs/xpipe" = {
-    device = "nas.home:/mnt/nvme/docker-volumes/xpipe-webtop";
+    device = "nas.servers:/mnt/nvme/docker-volumes/xpipe-webtop";
     fsType = "nfs4";
     options = ["rw"];
   };
 
   fileSystems."/mnt/nfs/open-webui" = {
-    device = "nas.home:/mnt/nvme/docker-volumes/open-webui";
+    device = "nas.servers:/mnt/nvme/docker-volumes/open-webui";
     fsType = "nfs4";
     options = ["rw"];
   };
 
   fileSystems."/mnt/nfs/ai-chat" = {
-    device = "nas.home:/mnt/nvme/docker-volumes/ai-chat";
+    device = "nas.servers:/mnt/nvme/docker-volumes/ai-chat";
     fsType = "nfs4";
     options = ["rw"];
   };
 
   fileSystems."/mnt/nfs/postgres" = {
-    device = "nas.home:/mnt/nvme/docker-volumes/postgres";
+    device = "nas.servers:/mnt/nvme/docker-volumes/postgres";
     fsType = "nfs4";
     options = ["rw"];
   };
 
   fileSystems."/mnt/nfs/copyparty" = {
-    device = "nas.home:/mnt/nvme/docker-volumes/copyparty";
+    device = "nas.servers:/mnt/nvme/docker-volumes/copyparty";
     fsType = "nfs4";
     options = ["rw"];
   };
 
   fileSystems."/mnt/nfs/media" = {
-    device = "nas.home:/mnt/backup/media";
+    device = "nas.servers:/mnt/backup/media";
     fsType = "nfs4";
     options = ["rw"];
   };
 
   fileSystems."/mnt/nfs/mariadb" = {
-    device = "nas.home:/mnt/nvme/docker-volumes/mariadb";
+    device = "nas.servers:/mnt/nvme/docker-volumes/mariadb";
     fsType = "nfs4";
     options = ["rw"];
   };
 
   fileSystems."/mnt/nfs/jelly" = {
-    device = "nas.home:/mnt/nvme/docker-volumes/jelly";
+    device = "nas.servers:/mnt/nvme/docker-volumes/jelly";
     fsType = "nfs4";
     options = ["rw"];
   };
