@@ -9,6 +9,5 @@
   home.stateVersion = "25.11";
 
   home.packages = with pkgs; [
-    libsForQt5.dolphin
   ];
 }
