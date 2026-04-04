@@ -67,9 +67,9 @@ Set-ItemProperty -Path HKLM:\Software\Microsoft\PolicyManager\default\WiFi\Allow
 # Start Menu: Disable Bing Search Results
 Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search -Name BingSearchEnabled -Type DWord -Value 0
 
-# Start Menu: Disable Cortana 
-New-Item -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows' -Name 'Windows Search' -ItemType Key
-New-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search' -Name AllowCortana -Type DWORD -Value 0
+# Start Menu: Disable Cortana - deprecated
+# New-Item -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows' -Name 'Windows Search' -ItemType Key
+# New-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search' -Name AllowCortana -Type DWORD -Value 0
 
 # Disable SMBv1
 Disable-WindowsOptionalFeature -Online -FeatureName smb1protocol
@@ -133,16 +133,15 @@ $applicationList = @(
     "Microsoft.3DBuilder"
     "Microsoft.BingNews"
     "Microsoft.BingSports"
-    "Microsoft.CommsPhone"
     "Microsoft.Getstarted"
     "Microsoft.GetHelp"
-    "Microsoft.Messaging"
+    # "Microsoft.Messaging"
     "Microsoft.MicrosoftOfficeHub"
     "Microsoft.OneConnect"
     "Microsoft.WindowsSoundRecorder"
     "Microsoft.MicrosoftStickyNotes"
     "Microsoft.Office.Sway"
-    "Microsoft.NetworkSpeedTest"
+    # "Microsoft.NetworkSpeedTest"
     "Microsoft.FreshPaint"
     "Microsoft.SkypeApp"
     "Microsoft.ZuneMusic"
@@ -204,7 +203,7 @@ choco install vcredist140 -y
 # choco install geforce-game-ready-driver -y
 
 # Install Logitech G Hub
-choco install lghub -y
+# choco install lghub -y
 
 # Install Samsung Magician
 choco install samsung-magician -y
@@ -217,6 +216,8 @@ choco install nzxt -y
 
 # Install HWiNFO
 choco install hwinfo -y
+
+choco install razer-synapse-4 -y
 
 ############################
 # .NET Framework
@@ -307,11 +308,10 @@ choco install windirstat -y
 # Install Development Tools
 choco install visualstudiocode -y
 
-# Install Termius
-choco install termius -y
+# Install XPipe
+choco install xpipe -y
 
-# Install XPipe - alternative to termius
-winget install xpipe-io.xpipe
+choco install warp-terminal -y
 
 # Install PowerToys
 choco install powertoys -y
@@ -325,6 +325,8 @@ choco install autodesk-fusion360 -y
 # Install Yubikey software
 choco install yubikey-manager -y
 choco install yubico-authenticator -y
+
+choco install veeam-agent -y
 
 # Automatic software updates
 choco install choco-upgrade-all-at --params "'/WEEKLY:yes /DAY:SUN /TIME:11:00 /ABORTTIME:13:00'"
@@ -348,7 +350,7 @@ choco install discord -y
 # Monitoring
 ##############
 
-$PresentMonVersion = "2.3.1"
+$PresentMonVersion = "2.4.1"
 $PresentMonExporterDir = "C:\Apps\PresentMonExporter"
 
 # Install NSSM (service manager)
