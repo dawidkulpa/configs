@@ -17,7 +17,7 @@ from prometheus_client import start_http_server
 PRESENTMON_PATH = os.environ.get("PRESENTMON_PATH", r"C:\Apps\PresentMonExporter\PresentMon.exe")
 METRICS_PORT = int(os.environ.get("PRESENTMON_METRICS_PORT", "4446"))
 STALE_TIMEOUT = int(os.environ.get("PRESENTMON_STALE_TIMEOUT", "60"))
-PRESENTMON_VERSION = "2.3.1"
+PRESENTMON_VERSION = "2.4.1"
 
 FRAME_BUCKETS = [1, 2, 4, 8, 10, 12, 16.6, 20, 25, 33.3, 50, 100]
 DISPLAY_BUCKETS = [5, 10, 16.6, 20, 25, 33.3, 50, 75, 100, 150, 200]
