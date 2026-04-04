@@ -32,6 +32,9 @@ if (-Not (Test-Path "$PresentMonExporterDir\PresentMon.exe")) {
 # Copy exporter script
 Copy-Item -Path "$PSScriptRoot\presentmon_exporter.py" -Destination "$PresentMonExporterDir\presentmon_exporter.py" -Force
 
+# Copy blacklist file
+Copy-Item -Path "$PSScriptRoot\presentmon_blacklist.txt" -Destination "$PresentMonExporterDir\presentmon_blacklist.txt" -Force
+
 # Register PresentMon exporter as a Windows service
 $svcName = "PresentMonExporter"
 $existingService = Get-Service -Name $svcName -ErrorAction SilentlyContinue
