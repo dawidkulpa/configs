@@ -1,0 +1,147 @@
+# NIX CONFIGURATION
+
+## OVERVIEW
+
+Nix flake managing 4 NixOS systems (PC, WSL, server, Docker server) via home-manager + custom module system. This is the core of the repo.
+
+## STRUCTURE
+
+```
+nix/
+├── flake.nix                      # Entry point — nixosConfigurations + templates
+├── flake.lock                     # Pinned input versions
+├── format.sh                      # Runs alejandra (Nix) + deno (Markdown)
+├── programs/                      # `my.programs.*` option modules
+│   ├── default.nix                # Aggregator — imports all program modules
+│   ├── fish.nix                   # Fish shell (~430 lines, most complex module)
+│   ├── git.nix, helix.nix, tmux.nix, starship.nix, opencode.nix
+│   ├── tealdeer/                  # Has custom pages from inputs.tldr-pages
+│   └── bitdefender.nix            # NOT imported in default.nix — standalone
+├── modules/
+│   ├── host/                      # System-level modules (k3s, dockerServer, fish)
+│   │   └── default.nix            # Aggregator
+│   └── home/                      # Home-manager modules (empty placeholder)
+│       └── default.nix
+├── shared/
+│   ├── host.nix                   # Base host: nix settings, agenix, fish, networking
+│   └── home.nix                   # Base home: packages, my.programs.* enables
+├── systems/
+│   ├── pc/                        # Desktop: Gnome, Nvidia, gaming
+│   ├── wsl/                       # WSL2: Docker, ~30 NFS mounts from nas.servers
+│   ├── server/                    # k3s cluster node, powersave
+│   ├── dockerServer/              # Docker Swarm, journald→VictoriaLogs
+│   └── macbookIntel/              # (exists as dir, unused/WIP)
+├── local/
+│   ├── local.example.nix          # Template for machine-specific overrides
+│   └── docker-exposed.nix         # Cloud VM hardware/boot config
+└── templates/
+    └── untracked-flake/           # `nix flake init -t my#untracked-flake`
+```
+
+## DATA FLOW
+
+```
+flake.nix
+  └─ nixosConfigurations.nixosPC
+       ├─ overlay-unstable            → pkgs.unstable.*
+       ├─ home-manager module
+       │    └─ systems/pc/home.nix
+       │         └─ shared/home.nix
+       │              ├─ programs/    (my.programs.* configs)
+       │              └─ modules/home/
+       ├─ systems/pc/host.nix
+       │    ├─ hardware-configuration.nix  (DO NOT EDIT)
+       │    └─ shared/host.nix
+       │         └─ modules/host/
+       └─ agenix module
+```
+
+## SYSTEM MATRIX
+
+| Config | Hostname | User Shell | Special |
+|--------|----------|------------|---------|
+| `nixosPC` | nixosPC | fish | Gnome, Nvidia, gaming packages |
+| `nixosWSL` | nixosWSL | fish | WSL2, Docker, ~30 NFS mounts, Python/dotnet |
+| `nixosServer` | (via local.nix) | fish | k3s, powersave, agenix-managed token |
+| `nixosDockerServer` | (via local.nix) | bash→fish | Docker Swarm, journald→VictoriaLogs, Elastic sysctl |
+
+## KEY INPUTS
+
+| Input | Pinned To | Purpose |
+|-------|-----------|---------|
+| nixpkgs | nixos-25.11 | Stable packages |
+| nixpkgsUnstable | nixos-unstable | `pkgs.unstable.*` overlay |
+| home-manager | release-25.11 | User config management |
+| nixos-wsl | main | WSL integration |
+| agenix | latest | Secret management |
+| fish-tide, fish-pj, fish-fzf | latest | Fish shell plugins (non-flake) |
+| tldr-pages | latest | Tealdeer custom pages |
+| nix-homebrew, homebrew-* | latest | macOS Homebrew integration |
+
+## PROGRAM MODULE PATTERN
+
+All programs use `my.programs.<name>.enable` options via NixOS module system:
+
+```nix
+{ lib, config, ... }:
+with lib; let
+  cfg = config.my.programs.<name>;
+in {
+  options.my.programs.<name> = {
+    enable = mkEnableOption "my <name> configuration";
+  };
+  config = mkIf cfg.enable {
+    programs.<name> = { ... };
+  };
+}
+```
+
+**Adding a new program:**
+1. Create `programs/<name>.nix` following the pattern above
+2. Add `./name.nix` to `programs/default.nix` imports
+3. Enable in `shared/home.nix`: `my.programs.<name>.enable = true;`
+
+**Adding a host-level module** (system services, not user programs):
+1. Create `modules/host/<name>.nix` with same option pattern
+2. Add to `modules/host/default.nix` imports
+3. Enable in target system's `host.nix`
+
+**Simple programs** (zoxide, bat, gh, zellij) are configured directly in `shared/home.nix` — no module needed for ≤3 lines of config.
+
+## CONVENTIONS
+
+- `specialArgs = { inherit inputs; }` — all modules receive flake inputs
+- Server/dockerServer import `local/local.nix` — must exist on target machine (copy from `local.example.nix`)
+- `language` helper in `fish.nix` — **no-op identity function**, exists solely for Helix syntax highlighting of embedded Fish code in Nix strings
+- `home-manager-buggy` vs `home-manager-buggy-s` — functionally identical (historical), both set user `buggy`
+- stateVersion pinned to `25.11` across all systems
+- Nix registry: flake registered as `my` — enables `nix flake init -t my#...`
+
+## ANTI-PATTERNS
+
+- **DO NOT** edit `hardware-configuration.nix` — auto-generated by `nixos-generate-config`
+- **DO NOT** commit `local/local.nix` — gitignored, machine-specific
+- **DO NOT** enable `nix.settings.auto-optimise-store` — [NixOS/nix#7273](https://github.com/NixOS/nix/issues/7273)
+- `bitdefender.nix` is NOT imported in `programs/default.nix` — must be imported manually
+- Zoxide nushell integration disabled — broken (TODO in `shared/home.nix`)
+- Docker server uses `bashInteractive` login shell with fish exec — XPipe probe workaround
+
+## COMMANDS
+
+```bash
+sudo nixos-rebuild switch --flake .#nixosPC            # Apply PC config
+sudo nixos-rebuild switch --flake .#nixosWSL            # Apply WSL config
+sudo nixos-rebuild switch --flake .#nixosServer         # Apply server config
+sudo nixos-rebuild switch --flake .#nixosDockerServer   # Apply docker server config
+nix flake check                                          # Validate flake
+nix flake update --commit-lock-file                      # Update all inputs
+./format.sh                                              # Format nix + markdown
+```
+
+## ADDING A NEW SYSTEM
+
+1. Create `systems/<name>/host.nix` importing `../../shared/host.nix`
+2. Create `systems/<name>/home.nix` importing `../../shared/home.nix`
+3. Add `hardware-configuration.nix` (generate with `nixos-generate-config`)
+4. Add entry in `flake.nix` under `nixosConfigurations`
+5. If server: import `../../local/local.nix` in host.nix, use `home-manager-buggy-s`
