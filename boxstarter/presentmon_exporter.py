@@ -7,6 +7,7 @@ import sys
 import threading
 import time
 import urllib.request
+import tempfile
 
 from prometheus_client import CollectorRegistry
 from prometheus_client import Counter
@@ -17,6 +18,7 @@ from prometheus_client import start_http_server
 PRESENTMON_PATH = os.environ.get("PRESENTMON_PATH", r"C:\Apps\PresentMonExporter\PresentMon.exe")
 METRICS_PORT = int(os.environ.get("PRESENTMON_METRICS_PORT", "4446"))
 STALE_TIMEOUT = int(os.environ.get("PRESENTMON_STALE_TIMEOUT", "60"))
+BLACKLIST_PATH = os.environ.get("PRESENTMON_BLACKLIST_PATH", os.path.join(os.path.dirname(os.path.abspath(__file__)), "presentmon_blacklist.txt"))
 PRESENTMON_VERSION = "2.4.1"
 
 FRAME_BUCKETS = [1, 2, 4, 8, 10, 12, 16.6, 20, 25, 33.3, 50, 75, 100, 150, 200, 500]
@@ -57,6 +59,21 @@ def parse_csv_line(headers, line):
     if len(row) < len(headers):
         return None
     return dict(zip(headers, row))
+
+
+def load_blacklist(path):
+    try:
+        with open(path, encoding="utf-8-sig") as f:
+            entries = [line.strip() for line in f if line.strip() and not line.strip().startswith("#")]
+        return list(dict.fromkeys(entries))
+    except (FileNotFoundError, OSError):
+        sys.stderr.write("Blacklist file not found: " + path + ", capturing all apps\n")
+        return []
+
+
+def is_blacklisted(app, blacklist):
+    normalized = app.casefold().removesuffix(".exe")
+    return any(entry.casefold().removesuffix(".exe") == normalized for entry in blacklist)
 
 
 def build_test_metrics(registry):
@@ -183,8 +200,11 @@ class CleanupCollector:
 
 
 def read_presentmon(metrics, seen, lock):
-    command = [PRESENTMON_PATH, "--output_stdout", "--stop_existing_session"]
     while True:
+        blacklist = load_blacklist(BLACKLIST_PATH)
+        command = [PRESENTMON_PATH, "--output_stdout", "--stop_existing_session"]
+        for entry in blacklist:
+            command.extend(["--exclude", entry])
         process = None
         headers = None
         try:
@@ -205,6 +225,8 @@ def read_presentmon(metrics, seen, lock):
                     continue
                 app = os.path.basename(parsed.get("Application", "").strip())
                 if not app:
+                    continue
+                if is_blacklisted(app, blacklist):
                     continue
                 try:
                     observe(metrics, app, parsed, seen, lock)
@@ -307,6 +329,54 @@ def run_tests():
                     animation_count = sample_metric.value
         if animation_count < 1:
             raise Exception("Test 8 failed: cs2.exe animation_error not observed (expected abs(-1.2) to be recorded)")
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".txt", delete=False, encoding="utf-8") as f:
+            f.write("Code.exe\ndwm.exe\n")
+            tmp9 = f.name
+        result9 = load_blacklist(tmp9)
+        os.unlink(tmp9)
+        if result9 != ["Code.exe", "dwm.exe"]:
+            raise Exception("Test 9 failed: " + str(result9))
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".txt", delete=False, encoding="utf-8") as f:
+            f.write("# Comment\n\nCode.exe\n  \n# Another\ndwm.exe\n")
+            tmp10 = f.name
+        result10 = load_blacklist(tmp10)
+        os.unlink(tmp10)
+        if result10 != ["Code.exe", "dwm.exe"]:
+            raise Exception("Test 10 failed: " + str(result10))
+        result11 = load_blacklist("/nonexistent/path/that/does/not/exist.txt")
+        if result11 != []:
+            raise Exception("Test 11 failed: " + str(result11))
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".txt", delete=False, encoding="utf-8") as f:
+            f.write("")
+            tmp12 = f.name
+        result12 = load_blacklist(tmp12)
+        os.unlink(tmp12)
+        if result12 != []:
+            raise Exception("Test 12 failed: " + str(result12))
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".txt", delete=False, encoding="utf-8") as f:
+            f.write("Code.exe\nCode.exe\ndwm.exe\n")
+            tmp13 = f.name
+        result13 = load_blacklist(tmp13)
+        os.unlink(tmp13)
+        if result13 != ["Code.exe", "dwm.exe"]:
+            raise Exception("Test 13 failed: " + str(result13))
+        if not is_blacklisted("Code.exe", ["Code.exe"]):
+            raise Exception("Test 14 failed")
+        if not is_blacklisted("code.exe", ["Code.exe"]):
+            raise Exception("Test 15 failed")
+        if not is_blacklisted("Code.exe", ["Code"]):
+            raise Exception("Test 16 failed")
+        if is_blacklisted("steam.exe", ["Code.exe", "dwm.exe"]):
+            raise Exception("Test 17 failed")
+        blacklist_j = ["Code.exe", "dwm.exe"]
+        cmd_j = [PRESENTMON_PATH, "--output_stdout", "--stop_existing_session"]
+        for entry in blacklist_j:
+            cmd_j.extend(["--exclude", entry])
+        if "--exclude" not in cmd_j or cmd_j.count("--exclude") != 2:
+            raise Exception("Test J failed: --exclude count wrong: " + str(cmd_j))
+        idx = cmd_j.index("--exclude")
+        if cmd_j[idx + 1] != "Code.exe" or cmd_j[idx + 3] != "dwm.exe":
+            raise Exception("Test J failed: --exclude values wrong: " + str(cmd_j))
         print("All tests passed")
         sys.exit(0)
     except Exception as e:
