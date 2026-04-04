@@ -9,6 +9,7 @@ Boxstarter/Chocolatey-based automation for Windows developer machine setup. Sing
 - `Boxstarter.ps1` — Full machine setup: privacy settings, UI tweaks, bloatware removal, driver installs, dev tools, runtimes, entertainment
 - `pc-mellanox-config.ps1` — Mellanox network adapter configuration (standalone, not called by Boxstarter.ps1)
 - `presentmon_exporter.py` — Python script: PresentMon CSV → Prometheus metrics exporter. Deployed to `C:\Apps\PresentMonExporter\` by Boxstarter.ps1. Run `python presentmon_exporter.py --test` to validate.
+- `presentmon_blacklist.txt` — Plain-text application blacklist for PresentMon exporter. One exe name per line, `#` comments supported. Deployed to `C:\Apps\PresentMonExporter\` by install script.
 
 ## DEPLOY
 
@@ -45,7 +46,7 @@ Install-BoxstarterPackage -PackageName https://raw.githubusercontent.com/dawidku
 - Nvidia driver install and Docker Desktop commented out — cause bootloop/issues
 - Chocolatey auto-update configured weekly (Sunday 11:00)
 - FNM (Fast Node Manager) used instead of nvm — matches macOS/Nix setup
-- PresentMon exporter uses env vars for config, not files — no YAML/JSON/INI
+- PresentMon exporter uses env vars for runtime config (`PRESENTMON_PATH`, `PRESENTMON_METRICS_PORT`, `PRESENTMON_STALE_TIMEOUT`, `PRESENTMON_BLACKLIST_PATH`). Application blacklist stored as plain-text file (`presentmon_blacklist.txt`) for git tracking.
 - All PresentMon metrics prefixed with `presentmon_` to avoid collision with OhmGraphite metrics
 
 ## MONITORING
@@ -58,13 +59,14 @@ PresentMon game performance metrics pipeline:
 - **PresentMon version**: Pinned in both `presentmon_exporter.py` (`PRESENTMON_VERSION`) and `Boxstarter.ps1` (`$PresentMonVersion`)
 - **Stale cleanup**: Metrics for apps not seen in 60 seconds are automatically removed
 - **Self-test**: `python presentmon_exporter.py --test` — validates CSV parsing, metrics, and endpoint without requiring PresentMon binary or live games
-- **Config**: Environment variables `PRESENTMON_PATH`, `PRESENTMON_METRICS_PORT`, `PRESENTMON_STALE_TIMEOUT`
+- **Config**: Environment variables `PRESENTMON_PATH`, `PRESENTMON_METRICS_PORT`, `PRESENTMON_STALE_TIMEOUT`, `PRESENTMON_BLACKLIST_PATH`
+- **Blacklist**: `presentmon_blacklist.txt` — plain-text file, one exe per line. Entries passed as `--exclude` args to PresentMon CLI (filters at ETW capture level). Python fallback filter as defense-in-depth. File auto-reloaded on PresentMon subprocess restart.
 - **Install dir**: `C:\Apps\PresentMonExporter\`
 
 ## ANTI-PATTERNS
 
 - **DO NOT** uncomment `geforce-game-ready-driver` or `geforce-experience` — causes bootloop
 - **DO NOT** uncomment `docker-desktop` — causes issues (use WSL Docker instead)
-- **DO NOT** add config files (YAML/JSON) to the exporter — use env vars (`PRESENTMON_PATH`, `PRESENTMON_METRICS_PORT`, `PRESENTMON_STALE_TIMEOUT`)
+- **DO NOT** add YAML/JSON/INI config files to the exporter — use env vars for runtime config. Exception: `presentmon_blacklist.txt` is a plain-text blacklist tracked in git.
 - **DO NOT** use `pid` or `window_title` as Prometheus labels — causes cardinality explosion
-- **DO NOT** add process filtering to the exporter — capture all graphics apps
+- **DO NOT** add whitelist-style process filtering — use the blacklist file (`presentmon_blacklist.txt`) with `--exclude` CLI args instead. Do not add regex/wildcard matching.
