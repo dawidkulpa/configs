@@ -78,14 +78,19 @@ def live_metrics():
 
 def observe(metrics, app, row, seen, lock):
     with lock:
-        metrics["frame"].labels(app).observe(float(row["MsBetweenPresents"]))
-        metrics["cpu_busy"].labels(app).observe(float(row["MsCPUBusy"]))
-        metrics["cpu_wait"].labels(app).observe(float(row["MsCPUWait"]))
-        metrics["gpu_busy"].labels(app).observe(float(row["MsGPUBusy"]))
-        metrics["gpu_wait"].labels(app).observe(float(row["MsGPUWait"]))
-        metrics["gpu_latency"].labels(app).observe(float(row["MsGPULatency"]))
-        metrics["display_latency"].labels(app).observe(float(row["DisplayLatency"]))
-        metrics["click_to_photon"].labels(app).observe(float(row["MsClickToPhotonLatency"]))
+        for key, col in [
+            ("frame", "MsBetweenPresents"),
+            ("cpu_busy", "MsCPUBusy"),
+            ("cpu_wait", "MsCPUWait"),
+            ("gpu_busy", "MsGPUBusy"),
+            ("gpu_wait", "MsGPUWait"),
+            ("gpu_latency", "MsGPULatency"),
+            ("display_latency", "DisplayLatency"),
+            ("click_to_photon", "MsClickToPhotonLatency"),
+        ]:
+            val = row.get(col, "")
+            if val and val != "NA":
+                metrics[key].labels(app).observe(float(val))
         metrics["frames_total"].labels(app).inc()
         seen[app] = time.time()
 
@@ -117,7 +122,7 @@ class CleanupCollector:
 
 
 def read_presentmon(metrics, seen, lock):
-    command = [PRESENTMON_PATH, "--output_stdout", "--v2_metrics", "--stop_existing_session"]
+    command = [PRESENTMON_PATH, "--output_stdout", "--stop_existing_session"]
     while True:
         process = None
         headers = None
@@ -172,10 +177,25 @@ def run_tests():
         if not parsed or parsed.get("Application") != "steam.exe" or parsed.get("MsGPUBusy") != "4.2":
             raise Exception("Test 1 failed")
         observe(metrics, "steam.exe", parsed, seen, lock)
+        sample2 = "Application,MsBetweenPresents,MsCPUBusy,MsCPUWait,MsGPULatency,MsGPUBusy,MsGPUWait,DisplayLatency,MsClickToPhotonLatency\ncs2.exe,8.3,3.1,1.2,0.8,6.5,0.5,9.2,NA"
+        head2, row2 = sample2.splitlines()
+        parsed2 = parse_csv_line(next(csv.reader([head2])), row2)
+        if not parsed2 or parsed2.get("Application") != "cs2.exe":
+            raise Exception("Test 2 failed")
+        observe(metrics, "cs2.exe", parsed2, seen, lock)
+        cs2_count = 0
+        for metric in registry.collect():
+            if metric.name != "presentmon_frame_time_milliseconds":
+                continue
+            for sample_metric in metric.samples:
+                if sample_metric.name == "presentmon_frame_time_milliseconds_count" and sample_metric.labels.get("application") == "cs2.exe":
+                    cs2_count = sample_metric.value
+        if cs2_count < 1:
+            raise Exception("Test 2 failed: cs2.exe frame count not recorded despite NA in MsClickToPhotonLatency")
         with lock:
             seen["old.exe"] = time.time() - 999
         if "old.exe" not in cleanup_stale(metrics, seen, lock, 60):
-            raise Exception("Test 3 failed")
+            raise Exception("Test 4 failed")
         buckets = []
         for metric in registry.collect():
             if metric.name != "presentmon_frame_time_milliseconds":
@@ -183,9 +203,11 @@ def run_tests():
             for sample_metric in metric.samples:
                 le = sample_metric.labels.get("le")
                 if sample_metric.name.endswith("_bucket") and le and le != "+Inf":
-                    buckets.append(float(le))
+                    le_float = float(le)
+                    if le_float not in buckets:
+                        buckets.append(le_float)
         if buckets != FRAME_BUCKETS:
-            raise Exception("Test 4 failed")
+            raise Exception("Test 5 failed")
         probe = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         probe.bind(("127.0.0.1", 0))
         port = probe.getsockname()[1]
@@ -194,7 +216,7 @@ def run_tests():
         time.sleep(0.2)
         payload = urllib.request.urlopen("http://127.0.0.1:" + str(port) + "/metrics", timeout=2).read().decode("utf-8")
         if "presentmon_frame_time_milliseconds_bucket" not in payload or "presentmon_up" not in payload:
-            raise Exception("Test 5 failed")
+            raise Exception("Test 6 failed")
         with open(os.path.join(".sisyphus", "evidence", "task-1-metrics-format.txt"), "w", encoding="utf-8") as handle:
             _ = handle.write(payload)
         print("All tests passed")
