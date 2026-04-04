@@ -277,6 +277,7 @@ cup golang --cacheLocation $ChocoCachePath
 
 # Install Python 3
 cup python3 --cacheLocation $ChocoCachePath
+RefreshEnv
 
 # Install and setup FNM (Fast Node Manager)
 cup fnm --cacheLocation $ChocoCachePath
@@ -342,6 +343,45 @@ choco install steam -y
 
 # Install Communication Tools
 choco install discord -y
+
+##############
+# Monitoring
+##############
+
+$PresentMonVersion = "2.3.1"
+$PresentMonExporterDir = "C:\Apps\PresentMonExporter"
+
+# Install NSSM (service manager)
+choco install nssm -y
+
+# Install Python Prometheus client
+pip install prometheus_client
+
+# Create exporter directory
+New-Item -Path $PresentMonExporterDir -ItemType directory -Force
+
+# Download PresentMon CLI
+$PresentMonUrl = "https://github.com/GameTechDev/PresentMon/releases/download/v$PresentMonVersion/PresentMon-$PresentMonVersion-x64.exe"
+if (-Not (Test-Path "$PresentMonExporterDir\PresentMon.exe")) {
+    Invoke-WebRequest -Uri $PresentMonUrl -OutFile "$PresentMonExporterDir\PresentMon.exe"
+}
+
+# Copy exporter script
+Copy-Item -Path "$PSScriptRoot\presentmon_exporter.py" -Destination "$PresentMonExporterDir\presentmon_exporter.py" -Force
+
+# Register PresentMon exporter as a Windows service
+$svcName = "PresentMonExporter"
+$existingService = Get-Service -Name $svcName -ErrorAction SilentlyContinue
+if (-Not $existingService) {
+    nssm install $svcName python "$PresentMonExporterDir\presentmon_exporter.py"
+    nssm set $svcName ObjectName LocalSystem
+    nssm set $svcName AppDirectory $PresentMonExporterDir
+    nssm set $svcName AppStdout "$PresentMonExporterDir\exporter.log"
+    nssm set $svcName AppStderr "$PresentMonExporterDir\exporter.log"
+    nssm set $svcName AppRotateFiles 1
+    nssm set $svcName AppRotateBytes 1048576
+}
+nssm start $svcName
 
 #####################################
 # Update Windows, reboot and clean up
