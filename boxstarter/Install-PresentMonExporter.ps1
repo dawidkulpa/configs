@@ -45,6 +45,8 @@ if (-Not $existingService) {
     nssm set $svcName AppRotateBytes 1048576
 }
 $svcState = (Get-Service -Name $svcName -ErrorAction SilentlyContinue).Status
-if ($svcState -ne 'Running') {
+if ($svcState -eq 'Running') {
+    nssm restart $svcName
+} elseif ($svcState -ne $null) {
     nssm start $svcName
 }
