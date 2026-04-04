@@ -39,7 +39,7 @@ presentmon_frames_total = Counter("presentmon_frames_total", "Total PresentMon f
 def parse_csv_line(headers, line):
     try:
         row = next(csv.reader([line]))
-    except Exception:
+    except Exception as e:
         return None
     if len(row) < len(headers):
         return None
@@ -142,7 +142,7 @@ def read_presentmon(metrics, seen, lock):
                     continue
                 try:
                     observe(metrics, app, parsed, seen, lock)
-                except Exception:
+                except Exception as e:
                     continue
             metrics["up"].set(0)
             sys.stderr.write("PresentMon subprocess exited")

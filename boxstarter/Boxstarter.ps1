@@ -381,7 +381,10 @@ if (-Not $existingService) {
     nssm set $svcName AppRotateFiles 1
     nssm set $svcName AppRotateBytes 1048576
 }
-nssm start $svcName
+$svcState = (Get-Service -Name $svcName -ErrorAction SilentlyContinue).Status
+if ($svcState -ne 'Running') {
+    nssm start $svcName
+}
 
 #####################################
 # Update Windows, reboot and clean up
