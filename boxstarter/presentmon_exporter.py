@@ -19,8 +19,8 @@ METRICS_PORT = int(os.environ.get("PRESENTMON_METRICS_PORT", "4446"))
 STALE_TIMEOUT = int(os.environ.get("PRESENTMON_STALE_TIMEOUT", "60"))
 PRESENTMON_VERSION = "2.4.1"
 
-FRAME_BUCKETS = [1, 2, 4, 8, 10, 12, 16.6, 20, 25, 33.3, 50, 100]
-DISPLAY_BUCKETS = [5, 10, 16.6, 20, 25, 33.3, 50, 75, 100, 150, 200]
+FRAME_BUCKETS = [1, 2, 4, 8, 10, 12, 16.6, 20, 25, 33.3, 50, 75, 100, 150, 200, 500]
+DISPLAY_BUCKETS = [5, 10, 16.6, 20, 25, 33.3, 50, 75, 100, 150, 200, 250, 500]
 LABELS = ["application"]
 STALE_KEYS = ["frame", "cpu_busy", "cpu_wait", "gpu_busy", "gpu_wait", "gpu_latency", "display_latency", "click_to_photon", "frames_total", "gpu_time", "displayed_time", "animation_error", "all_input_to_photon", "in_present_api", "between_display_change", "until_displayed", "render_present_latency", "between_simulation_start", "between_app_start", "pc_latency", "allows_tearing"]
 
