@@ -1,0 +1,8 @@
+# PresentMon application blacklist
+# One process name per line. Lines starting with # are comments.
+# Empty lines are ignored.
+# .exe extension is optional — PresentMon strips it automatically.
+# Matching is case-insensitive on Windows.
+
+Code.exe
+dwm.exe
