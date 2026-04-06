@@ -6,3 +6,20 @@
 
 Code.exe
 dwm.exe
+Discord.exe
+RazerAppEngine.exe
+SamsungMagician.exe
+Spotify.exe
+chrome.exe
+msedgewebview2.exe
+steamwebhelper.exe
+warp.exe
+PowerToys.FancyZones.exe
+Docker Desktop.exe
+NVIDIA Overlay.exe
+logioptionsplus_agent.exe
+Audeze.exe
+xpiped.exe
+csrss.exe
+docker.exe
+
