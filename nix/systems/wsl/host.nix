@@ -320,5 +320,17 @@
     options = ["rw"];
   };
 
+  fileSystems."/mnt/nfs/kiwix" = {
+    device = "nas.servers:/mnt/backup/kiwix";
+    fsType = "nfs4";
+    options = ["rw"];
+  };
+
+  fileSystems."/mnt/nfs/vikunja" = {
+    device = "nas.servers:/mnt/nvme/docker-volumes/vikunja";
+    fsType = "nfs4";
+    options = ["rw"];
+  };
+
   system.stateVersion = "25.11";
 }
