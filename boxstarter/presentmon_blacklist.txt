@@ -22,4 +22,29 @@ Audeze.exe
 xpiped.exe
 csrss.exe
 docker.exe
+EpicGamesLauncher.exe
+NZXT CAM.exe
+WindowsCamera.exe
+conhost.exe
+git.exe
+SystemSettings.exe
+authenticator.exe
+csrss.exe
+reg.exe
+vlc.exe
+wslhost.exe
+OpenWhispr.exe
+PhoneExperienceHost.exe
+PowerToys.AlwaysOnTop.exe
+Speedtest.exe
+Veeam.Endpoint.Tray.exe
+WindowsTerminal.exe
+YourPhoneAppProxy.exe
+conda.exe
+fastlist-0.3.0-x64.exe
+pwsh.exe
+sh.exe
+ssh.exe
+xpipe.exe
+
 
