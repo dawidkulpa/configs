@@ -46,5 +46,14 @@ pwsh.exe
 sh.exe
 ssh.exe
 xpipe.exe
+<unknown>
+ChatGPT.exe
+Fusion360.exe
+NVIDIA App.exe
+codex-computer-use.exe
+mpv.exe
+mstsc.exe
+prusa-slicer.exe
+python.exe
 
 
