@@ -55,5 +55,14 @@ mpv.exe
 mstsc.exe
 prusa-slicer.exe
 python.exe
+SoftLandingTask.exe
+powershell.exe
+updater.exe
+SoftwareUpdateNotification.exe
+VencordInstaller (2).exe
+docker-credential-wincred.exe
+mscorsvw.exe
+openscad.exe
+taskhostw.exe
 
 
