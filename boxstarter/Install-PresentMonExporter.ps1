@@ -11,7 +11,7 @@
     Run from elevated PowerShell in the boxstarter/ directory.
 #>
 
-$PresentMonVersion = "2.5.1"
+$PresentMonVersion = "2.6.0"
 $PresentMonExporterDir = "C:\Apps\PresentMonExporter"
 
 # Install NSSM (service manager)

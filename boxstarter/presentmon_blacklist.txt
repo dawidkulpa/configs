@@ -64,5 +64,12 @@ docker-credential-wincred.exe
 mscorsvw.exe
 openscad.exe
 taskhostw.exe
-
+Zoom.exe
+AudezeHQ.exe
+DbgX.Shell.exe
+HandBrake.exe
+SnippingTool.exe
+comet.exe
+easyeda-pro.exe
+svchost.exe
 
