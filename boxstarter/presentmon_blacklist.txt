@@ -78,4 +78,8 @@ UnrealEditor.exe
 devenv.exe
 setup.exe
 vs_setup_bootstrapper.exe
+PowerToys.FancyZonesEditor.exe
+PowerToys.WorkspacesEditor.exe
+PrusaSlicer.exe
+codex-computer-use-swift.exe
 
