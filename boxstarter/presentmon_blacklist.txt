@@ -72,4 +72,10 @@ SnippingTool.exe
 comet.exe
 easyeda-pro.exe
 svchost.exe
+EpicWebHelper.exe
+LiveCodingConsole.exe
+UnrealEditor.exe
+devenv.exe
+setup.exe
+vs_setup_bootstrapper.exe
 
